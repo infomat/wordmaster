@@ -164,4 +164,26 @@ class UsersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+    
+    public function isAuthorized($user)
+    {
+        if ($user['role'] == 'admin'){
+            if (in_array($this->request->action, ['delete'])) {
+                $user_id = (int)$this->request->params['pass'][0];
+                if ($user_id == $user['user_id']){
+                    return false;
+                }
+            }
+            return true;  
+        }
+        // All registered users can add orders
+        // The owner of an order can edit and delete it
+        if (in_array($this->request->action, ['edit','view'])) {
+            $user_id = (int)$this->request->params['pass'][0];
+            if ($user_id == $user['user_id']) {
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
+    }
 }
