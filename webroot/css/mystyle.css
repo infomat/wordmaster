@@ -1,0 +1,70 @@
+#status {
+	color:#ffffff;
+	margin-right : 2em;
+    margin-left : 4em;
+}
+#status a {
+    color:#CCCC66;
+    margin-left : 4em;
+}
+header {
+    background-color: #116D76;
+}
+#title a {
+   color:#FAFAFA; 
+}
+
+.error {
+    color : red;
+}
+
+.commentid {
+   font-family: sans-serif;
+   color: #1798B8;
+   font-style: bold;
+}
+.comment {
+    display:inline-block;
+    text-align: left;
+}
+.commentrow {
+    border-bottom-color: cadetblue
+}
+
+.tags_label{
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+.mytags{
+    background: #FAFAFA;
+    padding: 0.5em;
+    border: 1px #EFEFEF solid; 
+    width: 100%; 
+}
+
+.tag {
+    font-size: 80%;
+    margin:0;
+    padding:0;
+}
+
+.tagarticle {
+    margin:0;
+    padding:0;
+    font-size: 90%;
+}
+
+.checkbox{
+    display:inline-block;
+    margin: 0 2em 0 2em;
+}
+
+td{
+    word-wrap: break-word;
+}
+
+.mynotice {
+    font-size: 80%;
+    color:#C2140B;
+    text-align: right;
+}
