@@ -22,8 +22,7 @@ class UsersFixture extends TestFixture
         'email' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'password' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'username' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'lastName' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'firstname' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'name' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         '_constraints' => [
@@ -48,10 +47,9 @@ class UsersFixture extends TestFixture
             'email' => 'Lorem ipsum dolor sit amet',
             'password' => 'Lorem ipsum dolor sit amet',
             'username' => 'Lorem ipsum dolor sit amet',
-            'lastName' => 'Lorem ipsum dolor sit amet',
-            'firstname' => 'Lorem ipsum dolor sit amet',
-            'created' => '2015-12-23 04:15:58',
-            'modified' => '2015-12-23 04:15:58'
+            'name' => 'Lorem ipsum dolor sit amet',
+            'created' => '2015-12-23 10:36:07',
+            'modified' => '2015-12-23 10:36:07'
         ],
     ];
 }

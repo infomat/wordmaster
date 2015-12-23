@@ -53,16 +53,16 @@ legend {
 }
 
 .index table {
-    margin-top: 2rem;
-    border: 0;
-    width: 100%;
-    table-layout: fixed;
+  margin-top: 2rem;
+  border: 0;
+  width: 100%;
+  table-layout: auto;
 }
 
 .related table {
-    border: 0;
-    width: 100%;
-    table-layout: fixed;
+  border: 0;
+  width: 100%;
+  table-layout: auto;
 }
 
 .index table thead {

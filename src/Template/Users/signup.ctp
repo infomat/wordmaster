@@ -11,8 +11,7 @@
         <?php
             echo $this->Form->input('username');
             echo $this->Form->input('email');
-            echo $this->Form->input('lastName');
-            echo $this->Form->input('firstname');
+            echo $this->Form->input('name');
             echo $this->Form->input('password');
         ?>
     </fieldset>

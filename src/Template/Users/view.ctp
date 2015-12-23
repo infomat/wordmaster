@@ -35,16 +35,8 @@
             <td><?= h($user->username) ?></td>
         </tr>
         <tr>
-            <th><?= __('LastName') ?></th>
-            <td><?= h($user->lastName) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Firstname') ?></th>
-            <td><?= h($user->firstname) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($user->id) ?></td>
+            <th><?= __('name') ?></th>
+            <td><?= h($user->name) ?></td>
         </tr>
         <tr>
             <th><?= __('Created') ?></th>

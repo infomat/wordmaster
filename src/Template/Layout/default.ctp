@@ -13,7 +13,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'Word Master';
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,6 +28,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
+    <?= $this->Html->css('mystyle.css') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -35,16 +36,24 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </head>
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
+        <ul class="title-area large-2 medium-3 columns">
             <li class="name">
                 <h1><a href=""><?= $this->fetch('title') ?></a></h1>
             </li>
         </ul>
         <section class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
-            </ul>
+            <div id="status" class="right">  
+                <?php
+                if (is_null($this->request->session()->read('Auth.User.username'))) {
+                    $this->Html->link(__('Signup'), ['controller' => 'Users', 'action' => 'singup']);
+                    $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login']);
+
+                } else {
+                    echo "Welcome " . $this->request->session()->read('Auth.User.name'); 
+                    echo $this->Html->link('Sign Out', ['controller' => 'users', 'action' => 'logout']);
+                }
+                ?>
+            </div>
         </section>
     </nav>
     <?= $this->Flash->render() ?>

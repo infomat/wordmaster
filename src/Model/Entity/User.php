@@ -11,8 +11,7 @@ use Cake\ORM\Entity;
  * @property string $email
  * @property string $password
  * @property string $username
- * @property string $lastName
- * @property string $firstname
+ * @property string $name
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  * @property \App\Model\Entity\Diary[] $diary
