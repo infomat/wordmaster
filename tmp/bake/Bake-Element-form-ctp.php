@@ -25,7 +25,7 @@ if (isset($modelObject) && $modelObject->behaviors()->has('Tree')) {
     });
 }
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-2 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><CakePHPBakeOpenTag= __('Actions') CakePHPBakeCloseTag></li>
 <?php if (strpos($action, 'add') === false): ?>

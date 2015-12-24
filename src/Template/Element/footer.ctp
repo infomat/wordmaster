@@ -1,0 +1,1 @@
+<p id="footer" class="text-center text-muted">2015 Changho Choi All rights reserved</p>

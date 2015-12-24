@@ -1,4 +1,4 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-2 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
@@ -12,7 +12,7 @@
         <li><?= $this->Html->link(__('New Word'), ['controller' => 'Words', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="users index large-9 medium-8 columns content">
+<div class="users index large-10 medium-8 columns content">
     <h3><?= __('Users') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -32,7 +32,6 @@
                 <td><?= $this->Number->format($user->id) ?></td>
                 <td><?= h($user->role) ?></td>
                 <td><?= h($user->email) ?></td>
-                <td><?= h($user->password) ?></td>
                 <td><?= h($user->username) ?></td>
                 <td><?= h($user->name) ?></td>
                 <td class="actions">

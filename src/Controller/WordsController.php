@@ -109,4 +109,26 @@ class WordsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+    
+    /**
+     * isAuthorized method
+     * Authorization depedning on role
+     * @param string|null $id Order id.
+     * @return void
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['index', 'add']))
+            return true;
+        
+        // The owner of an order can edit and delete it
+        if (in_array($this->request->action, ['edit', 'delete', 'view'])) {
+            $article_id = (int)$this->request->params['pass'][0];
+            if ($this->Articles->isOwnedBy($word_id, $user['user_id'])) {
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
+    }
 }

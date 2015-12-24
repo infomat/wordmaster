@@ -1,0 +1,173 @@
+.view-comment {
+    background: #EFEBE9;
+    padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+    padding-bottom: 10px;
+    border: solid #ddd 1px; 
+	margin-bottom: 10px;
+    margin-top:0;
+}
+ul.unapprovedcomment{
+	color: red;
+}
+#main {
+    width: 90%;
+    margin-top:25px;
+    margin-left:5%;
+    margin-right:5%;
+    text-align: left;
+    background: white;
+    padding: 5px 50px 20px;
+    border: solid #ddd;
+    border-width: 1px;
+}
+#FbLoging {
+    width: 90%;
+    margin-top:10px;
+    margin-left:5%;
+    margin-right:5%;
+    text-align: center;
+    background: white;
+    padding-top: 20px;
+    border: solid #ddd;
+    border-width: 1px;
+}
+#main-list {
+    width: 100%;
+    margin: 0 auto;
+    background: white;
+    text-align:center;
+    padding-left: 20px;
+	padding-right: 20px;
+}
+
+#logout{
+	width: 100%;
+	text-align:right;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+hr{
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+.edit-comment{
+	background: #EFEBE9;
+    padding: 5px; 
+	margin-bottom: 10px;
+	border: solid #ddd 1px;
+}
+.GgoogleMap{
+    text-align:center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border: solid #ddd 1px;
+}
+#Gmap {
+    width: 800px;
+    margin: 20px auto;
+    text-align: left;
+    background: white;
+    padding: 5px 50px 20px;
+    border: solid #ddd;
+    border-width: 1px;
+}
+
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    color:#333333;
+    //margin-top: 0.2em;
+    //padding: 0.1em 0.3em 0.1em 0.3em;
+}
+
+header h1 small {
+    margin-left: 0.3em;
+    color:#E0FFFF;
+}
+
+nav ul {
+  color: #5a5a5a;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+
+#pull-left {
+    float:left;
+    width: 60%
+}
+
+
+#pull-right {
+    float:right;
+    width: 25%
+}
+#searchbox {
+    margin-top: 0.4em;
+}
+
+#footer {
+    margin-top:20px;
+    font-size: 100%
+}
+
+.cocorsnotice {
+    font-size: 80%;
+    color:#C2140B;
+    text-align: right;
+}
+
+td{
+    word-wrap: break-word;
+}
+
+.commentid {
+   font-family: sans-serif;
+   color: #1798B8;
+   font-style: bold;
+}
+.comment {
+    display:inline-block;
+    text-align: left;
+}
+.commentrow {
+    border-bottom-color: cadetblue
+}
+
+#legend_r {
+    color:#BE140B;
+}
+
+.overlaytxt {
+    position: absolute;
+    top: 190px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 5vw;
+    line-height: 50px;
+    margin-bottom: 25px;
+    color:#ffffff;
+}
+
+.intro-lead-in {
+    position: absolute;
+    top: 140px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+
+    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-style: italic;
+    font-size: 3.5vw;
+    line-height: 22px;
+    margin-bottom: 25px;
+    color:#ffffff;
+}
+

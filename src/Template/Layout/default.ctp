@@ -25,42 +25,36 @@ $cakeDescription = 'Word Master';
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
-
+    <?= $this->Html->css('flatly.bootstrap.min.css') ?>
+    <?= $this->Html->css('jquery-ui.css') ?> 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
-    <?= $this->Html->css('mystyle.css') ?>
-
+    <?= $this->Html->css('wordmaster.css') ?>
+    <?= $this->Html->script('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js') ?> 
+    
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-2 medium-3 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <section class="top-bar-section">
-            <div id="status" class="right">  
-                <?php
-                if (is_null($this->request->session()->read('Auth.User.username'))) {
-                    $this->Html->link(__('Signup'), ['controller' => 'Users', 'action' => 'singup']);
-                    $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login']);
-
-                } else {
-                    echo "Welcome " . $this->request->session()->read('Auth.User.name'); 
-                    echo $this->Html->link('Sign Out', ['controller' => 'users', 'action' => 'logout']);
-                }
-                ?>
-            </div>
-        </section>
-    </nav>
+    <header>
+        <h1 id="title">
+            <h1>Word Master<small>Improve your word power</small><a href="#"></h1>
+        </h1>
+    </header>
+    
+    <nav class="navbar navbar-default">
+        <?= $this->element('navbar'); ?>
+    </nav>    
+    
     <?= $this->Flash->render() ?>
     <section class="container clearfix">
         <?= $this->fetch('content') ?>
     </section>
     <footer>
+        <?= $this->element('footer'); ?>
     </footer>
 </body>
+    <?= $this->Html->script('http://code.jquery.com/ui/1.11.4/jquery-ui.js') ?>
+    <?= $this->Html->script('http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js') ?>
 </html>

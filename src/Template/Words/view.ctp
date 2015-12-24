@@ -1,4 +1,4 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<nav class="large-2 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Word'), ['action' => 'edit', $word->id]) ?> </li>
@@ -11,7 +11,7 @@
         <li><?= $this->Html->link(__('New Tag'), ['controller' => 'Tags', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="words view large-9 medium-8 columns content">
+<div class="words view large-10 medium-8 columns content">
     <h3><?= h($word->id) ?></h3>
     <table class="vertical-table">
         <tr>
