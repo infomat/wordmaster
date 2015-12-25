@@ -1,10 +1,11 @@
-<div class="history form content">
-    <?= $this->Form->create($history) ?>
+<div class="diarys form content">
+    <?= $this->Form->create($diary) ?>
     <fieldset>
-        <legend><?= __('Add History') ?></legend>
+        <legend><?= __('Add Diary') ?></legend>
         <?php
+            echo $this->Form->input('subject');
+            echo $this->Form->input('body');
             echo $this->Form->input('user_id', ['options' => $users, 'empty' => true]);
-            echo $this->Form->input('duration');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

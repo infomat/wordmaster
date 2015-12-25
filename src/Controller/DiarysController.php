@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Diary Controller
+ * Diarys Controller
  *
- * @property \App\Model\Table\DiaryTable $Diary
+ * @property \App\Model\Table\DiarysTable $Diarys
  */
-class DiaryController extends AppController
+class DiarysController extends AppController
 {
 
     /**
@@ -21,8 +21,8 @@ class DiaryController extends AppController
         $this->paginate = [
             'contain' => ['Users']
         ];
-        $this->set('diary', $this->paginate($this->Diary));
-        $this->set('_serialize', ['diary']);
+        $this->set('diarys', $this->paginate($this->Diarys));
+        $this->set('_serialize', ['diarys']);
     }
 
     /**
@@ -34,7 +34,7 @@ class DiaryController extends AppController
      */
     public function view($id = null)
     {
-        $diary = $this->Diary->get($id, [
+        $diary = $this->Diarys->get($id, [
             'contain' => ['Users']
         ]);
         $this->set('diary', $diary);
@@ -48,17 +48,17 @@ class DiaryController extends AppController
      */
     public function add()
     {
-        $diary = $this->Diary->newEntity();
+        $diary = $this->Diarys->newEntity();
         if ($this->request->is('post')) {
-            $diary = $this->Diary->patchEntity($diary, $this->request->data);
-            if ($this->Diary->save($diary)) {
+            $diary = $this->Diarys->patchEntity($diary, $this->request->data);
+            if ($this->Diarys->save($diary)) {
                 $this->Flash->success(__('The diary has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The diary could not be saved. Please, try again.'));
             }
         }
-        $users = $this->Diary->Users->find('list', ['limit' => 200]);
+        $users = $this->Diarys->Users->find('list', ['limit' => 200]);
         $this->set(compact('diary', 'users'));
         $this->set('_serialize', ['diary']);
     }
@@ -72,19 +72,19 @@ class DiaryController extends AppController
      */
     public function edit($id = null)
     {
-        $diary = $this->Diary->get($id, [
+        $diary = $this->Diarys->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $diary = $this->Diary->patchEntity($diary, $this->request->data);
-            if ($this->Diary->save($diary)) {
+            $diary = $this->Diarys->patchEntity($diary, $this->request->data);
+            if ($this->Diarys->save($diary)) {
                 $this->Flash->success(__('The diary has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The diary could not be saved. Please, try again.'));
             }
         }
-        $users = $this->Diary->Users->find('list', ['limit' => 200]);
+        $users = $this->Diarys->Users->find('list', ['limit' => 200]);
         $this->set(compact('diary', 'users'));
         $this->set('_serialize', ['diary']);
     }
@@ -99,8 +99,8 @@ class DiaryController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $diary = $this->Diary->get($id);
-        if ($this->Diary->delete($diary)) {
+        $diary = $this->Diarys->get($id);
+        if ($this->Diarys->delete($diary)) {
             $this->Flash->success(__('The diary has been deleted.'));
         } else {
             $this->Flash->error(__('The diary could not be deleted. Please, try again.'));

@@ -1,15 +1,4 @@
-<nav class="large-2 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Diary'), ['action' => 'edit', $diary->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Diary'), ['action' => 'delete', $diary->id], ['confirm' => __('Are you sure you want to delete # {0}?', $diary->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Diary'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Diary'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="diary view content">
+<div class="diarys view content">
     <h3><?= h($diary->id) ?></h3>
     <table class="vertical-table">
         <tr>

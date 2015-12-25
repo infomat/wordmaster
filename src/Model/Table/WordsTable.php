@@ -55,10 +55,17 @@ class WordsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('english');
+            ->notEmpty('english')
+            ->requirePresence('english');
 
         $validator
-            ->allowEmpty('meaning');
+            ->notEmpty('meaning')
+            ->requirePresence('meaning');
+        
+        $validator
+            ->notEmpty('example')
+            ->requirePresence('example');
+
 
         $validator
             ->add('completed', 'valid', ['rule' => 'numeric'])
@@ -79,4 +86,9 @@ class WordsTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
+    
+    public function isOwnedBy($wordId, $userId)
+	{
+		return $this->exists(['id' => $wordId, 'user_id' => $userId]);
+	}	
 }

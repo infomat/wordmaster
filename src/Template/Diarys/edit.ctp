@@ -1,7 +1,7 @@
-<div class="diary form content">
+<div class="diarys form content">
     <?= $this->Form->create($diary) ?>
     <fieldset>
-        <legend><?= __('Add Diary') ?></legend>
+        <legend><?= __('Edit Diary') ?></legend>
         <?php
             echo $this->Form->input('subject');
             echo $this->Form->input('body');

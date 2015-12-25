@@ -1,4 +1,4 @@
-<div class="history view content">
+<div class="historys view content">
     <h3><?= h($history->id) ?></h3>
     <table class="vertical-table">
         <tr>

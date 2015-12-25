@@ -1,5 +1,5 @@
-<div class="history index content">
-    <h3><?= __('History') ?></h3>
+<div class="historys index content">
+    <h3><?= __('Historys') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($history as $history): ?>
+            <?php foreach ($historys as $history): ?>
             <tr>
                 <td><?= $this->Number->format($history->id) ?></td>
                 <td><?= $history->has('user') ? $this->Html->link($history->user->id, ['controller' => 'Users', 'action' => 'view', $history->user->id]) : '' ?></td>

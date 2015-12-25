@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * History Controller
+ * Historys Controller
  *
- * @property \App\Model\Table\HistoryTable $History
+ * @property \App\Model\Table\HistorysTable $Historys
  */
-class HistoryController extends AppController
+class HistorysController extends AppController
 {
 
     /**
@@ -21,8 +21,8 @@ class HistoryController extends AppController
         $this->paginate = [
             'contain' => ['Users']
         ];
-        $this->set('history', $this->paginate($this->History));
-        $this->set('_serialize', ['history']);
+        $this->set('historys', $this->paginate($this->Historys));
+        $this->set('_serialize', ['historys']);
     }
 
     /**
@@ -34,7 +34,7 @@ class HistoryController extends AppController
      */
     public function view($id = null)
     {
-        $history = $this->History->get($id, [
+        $history = $this->Historys->get($id, [
             'contain' => ['Users']
         ]);
         $this->set('history', $history);
@@ -48,17 +48,17 @@ class HistoryController extends AppController
      */
     public function add()
     {
-        $history = $this->History->newEntity();
+        $history = $this->Historys->newEntity();
         if ($this->request->is('post')) {
-            $history = $this->History->patchEntity($history, $this->request->data);
-            if ($this->History->save($history)) {
+            $history = $this->Historys->patchEntity($history, $this->request->data);
+            if ($this->Historys->save($history)) {
                 $this->Flash->success(__('The history has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The history could not be saved. Please, try again.'));
             }
         }
-        $users = $this->History->Users->find('list', ['limit' => 200]);
+        $users = $this->Historys->Users->find('list', ['limit' => 200]);
         $this->set(compact('history', 'users'));
         $this->set('_serialize', ['history']);
     }
@@ -72,19 +72,19 @@ class HistoryController extends AppController
      */
     public function edit($id = null)
     {
-        $history = $this->History->get($id, [
+        $history = $this->Historys->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $history = $this->History->patchEntity($history, $this->request->data);
-            if ($this->History->save($history)) {
+            $history = $this->Historys->patchEntity($history, $this->request->data);
+            if ($this->Historys->save($history)) {
                 $this->Flash->success(__('The history has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The history could not be saved. Please, try again.'));
             }
         }
-        $users = $this->History->Users->find('list', ['limit' => 200]);
+        $users = $this->Historys->Users->find('list', ['limit' => 200]);
         $this->set(compact('history', 'users'));
         $this->set('_serialize', ['history']);
     }
@@ -99,8 +99,8 @@ class HistoryController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $history = $this->History->get($id);
-        if ($this->History->delete($history)) {
+        $history = $this->Historys->get($id);
+        if ($this->Historys->delete($history)) {
             $this->Flash->success(__('The history has been deleted.'));
         } else {
             $this->Flash->error(__('The history could not be deleted. Please, try again.'));

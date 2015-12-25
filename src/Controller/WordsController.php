@@ -124,8 +124,8 @@ class WordsController extends AppController
         
         // The owner of an order can edit and delete it
         if (in_array($this->request->action, ['edit', 'delete', 'view'])) {
-            $article_id = (int)$this->request->params['pass'][0];
-            if ($this->Articles->isOwnedBy($word_id, $user['user_id'])) {
+            $word_id = (int)$this->request->params['pass'][0];
+            if ($this->Words->isOwnedBy($word_id, $user['id'])) {
                 return true;
             }
         }

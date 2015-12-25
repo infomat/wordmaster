@@ -1,18 +1,18 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\History;
+use App\Model\Entity\Diary;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * History Model
+ * Diarys Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
  */
-class HistoryTable extends Table
+class DiarysTable extends Table
 {
 
     /**
@@ -25,7 +25,7 @@ class HistoryTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('history');
+        $this->table('diarys');
         $this->displayField('id');
         $this->primaryKey('id');
 
@@ -49,8 +49,10 @@ class HistoryTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->add('duration', 'valid', ['rule' => 'datetime'])
-            ->allowEmpty('duration');
+            ->allowEmpty('subject');
+
+        $validator
+            ->allowEmpty('body');
 
         return $validator;
     }

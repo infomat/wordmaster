@@ -1,5 +1,5 @@
-<div class="diary index content">
-    <h3><?= __('Diary') ?></h3>
+<div class="diarys index content">
+    <h3><?= __('Diarys') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($diary as $diary): ?>
+            <?php foreach ($diarys as $diary): ?>
             <tr>
                 <td><?= $this->Number->format($diary->id) ?></td>
                 <td><?= h($diary->subject) ?></td>

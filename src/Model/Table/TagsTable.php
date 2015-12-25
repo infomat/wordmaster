@@ -55,4 +55,5 @@ class TagsTable extends Table
 
         return $validator;
     }
+
 }

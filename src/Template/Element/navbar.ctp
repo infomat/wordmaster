@@ -18,29 +18,23 @@
       <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Word <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/Words">Word List</a></li>
-            <li><a href="/Tag/index">Tag</a></li>
+            <li><a href="/Words/add">Add New Word</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="/Words/add">Add New Word</a></li>		
-            <?php 
-              echo "<li><a href='/Words/index/'>All Word List</a></li>";
-              echo "<li><a href='/Words/index/0".$this->request->session()->read('Auth.User.id')."'>My Word List</a></li>";
-             ?>
+            <li><a href="/Words">Word List</a></li>
+            <li><a href='/Words/index/0'>All Word List</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/Tags">Tag List</a></li>
           </ul>		          
       </li>
       <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Word <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Journal<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/Tags">Word List</a></li>
-            <li><a href="/Tag/index">Tag</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/Words/add">Add New Word</a></li>		
-            <?php 
-              echo "<li><a href='/Words/index/'>All Word List</a></li>";
-              echo "<li><a href='/Words/index/0".$this->request->session()->read('Auth.User.id')."'>My Word List</a></li>";
-             ?>
+            <li><a href="/Diarys">Journal List</a></li>
+            <li><a href="/Diarys/add">Write Journal</a></li>
           </ul>		          
       </li>
+      <li><a href="#">Game</a></li>
+      
       <form class="navbar-form navbar-left" role="search">
         <div id="searchbox" class="form-group">
           <input type="text" class="form-control" placeholder="Search Word">
@@ -49,7 +43,6 @@
       </form>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/users/contactus">Game</a></li>
         <li><a href="/pages/about">History</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
@@ -61,11 +54,8 @@
                 if($this->request->session()->read('Auth.User.role') == 'user'){
                   echo "<li><a href='/users/profile'>My Profile</a></li>";
                   echo "<li><a href='/users/edit/" . $this->request->session()->read('Auth.User.id') . "'>Edit Profile</a></li>";
-                  echo "<li role='separator' class='divider'></li>";
-                  echo "<li><a href='/Words/recent'>My Recent Words</a></li>";
                 }else{
                   echo "<li><a href='/users/userlist/'>User List</a></li>";
-                  echo "<li role='separator' class='divider'></li>";
                   echo "<li><a href='/users/add/'>Add User</a></li>";
                 }
                   echo "<li role='separator' class='divider'></li>"; 

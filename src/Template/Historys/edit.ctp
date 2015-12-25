@@ -1,4 +1,4 @@
-<div class="history form content">
+<div class="historys form content">
     <?= $this->Form->create($history) ?>
     <fieldset>
         <legend><?= __('Edit History') ?></legend>
