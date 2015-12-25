@@ -9,7 +9,7 @@
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="diary view large-10 medium-8 columns content">
+<div class="diary view content">
     <h3><?= h($diary->id) ?></h3>
     <table class="vertical-table">
         <tr>

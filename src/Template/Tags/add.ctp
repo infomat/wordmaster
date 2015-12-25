@@ -1,12 +1,4 @@
-<nav class="large-2 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Tags'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Words'), ['controller' => 'Words', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Word'), ['controller' => 'Words', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="tags form large-10 medium-8 columns content">
+<div class="tags form content">
     <?= $this->Form->create($tag) ?>
     <fieldset>
         <legend><?= __('Add Tag') ?></legend>

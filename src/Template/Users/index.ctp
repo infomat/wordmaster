@@ -1,18 +1,4 @@
-<nav class="large-2 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Diary'), ['controller' => 'Diary', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Diary'), ['controller' => 'Diary', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List History'), ['controller' => 'History', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New History'), ['controller' => 'History', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Points'), ['controller' => 'Points', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Point'), ['controller' => 'Points', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Words'), ['controller' => 'Words', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Word'), ['controller' => 'Words', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="users index large-10 medium-8 columns content">
+<div class="users index content">
     <h3><?= __('Users') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

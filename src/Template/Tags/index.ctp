@@ -1,12 +1,4 @@
-<nav class="large-2 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Tag'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Words'), ['controller' => 'Words', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Word'), ['controller' => 'Words', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="tags index large-10 medium-8 columns content">
+<div class="tags index content">
     <h3><?= __('Tags') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

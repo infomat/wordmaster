@@ -15,7 +15,7 @@
       <ul class="nav navbar-nav">
       <!--<li><a href="/">Home <span class="sr-only">(current)</span></a></li>-->
 
-        <li class="dropdown">
+      <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Word <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/Words">Word List</a></li>
@@ -27,16 +27,27 @@
               echo "<li><a href='/Words/index/0".$this->request->session()->read('Auth.User.id')."'>My Word List</a></li>";
              ?>
           </ul>		          
-        </li>
-      </ul>
-      <!--
+      </li>
+      <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Word <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/Tags">Word List</a></li>
+            <li><a href="/Tag/index">Tag</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/Words/add">Add New Word</a></li>		
+            <?php 
+              echo "<li><a href='/Words/index/'>All Word List</a></li>";
+              echo "<li><a href='/Words/index/0".$this->request->session()->read('Auth.User.id')."'>My Word List</a></li>";
+             ?>
+          </ul>		          
+      </li>
       <form class="navbar-form navbar-left" role="search">
         <div id="searchbox" class="form-group">
-          <input type="text" class="form-control" placeholder="Search Key Word">
+          <input type="text" class="form-control" placeholder="Search Word">
+          <button type="submit" class="btn btn-success">Search</button>
         </div>
-        <button type="submit" class="btn btn-success">Search</button>
       </form>
-    -->
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/users/contactus">Game</a></li>
         <li><a href="/pages/about">History</a></li>

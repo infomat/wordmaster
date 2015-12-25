@@ -8,6 +8,12 @@
 	margin-bottom: 10px;
     margin-top:0;
 }
+
+#searchbox input {
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+    margin-right: 0.5em;
+}
 ul.unapprovedcomment{
 	color: red;
 }
