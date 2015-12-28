@@ -1,3 +1,7 @@
+#word_statistic {
+    font-size: 70%;
+    padding: 3pt;
+}
 .view-comment {
     background: #EFEBE9;
     padding-left: 20px;
@@ -64,21 +68,6 @@ hr{
     padding: 5px; 
 	margin-bottom: 10px;
 	border: solid #ddd 1px;
-}
-.GgoogleMap{
-    text-align:center;
-    margin-top: 0;
-    margin-bottom: 10px;
-    border: solid #ddd 1px;
-}
-#Gmap {
-    width: 800px;
-    margin: 20px auto;
-    text-align: left;
-    background: white;
-    padding: 5px 50px 20px;
-    border: solid #ddd;
-    border-width: 1px;
 }
 
 header h1 {

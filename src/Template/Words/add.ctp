@@ -8,6 +8,7 @@
             echo '<label for="example"><strong>Example</strong></label>';
             echo $this->Form->textarea('example');
             echo $this->Form->select('tags._ids', $tags, ['multiple' => 'checkbox']);
+            echo $this->Form->input('newtag',['label'=>'New Tag','placeholder'=>'Optional additonal tag with commas']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

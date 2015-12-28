@@ -55,15 +55,16 @@ class WordsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->notEmpty('english')
+            ->notEmpty('english','need to fill in english word')
             ->requirePresence('english');
 
+        
         $validator
-            ->notEmpty('meaning')
+            ->notEmpty('meaning','need to fill in meaining')
             ->requirePresence('meaning');
         
         $validator
-            ->notEmpty('example')
+            ->notEmpty('example','need to fill in example')
             ->requirePresence('example');
 
 
@@ -83,7 +84,9 @@ class WordsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        //same user can not add same word,but different user can add duplicate word
+        $rules->add($rules->existsIn(['user_id'], 'Users'))
+              ->add($rules->isUnique(['english', 'user_id']));
         return $rules;
     }
     

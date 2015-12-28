@@ -3,7 +3,6 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('english') ?></th>
                 <th><?= $this->Paginator->sort('meaning') ?></th>
                 <th><?= $this->Paginator->sort('completed') ?></th>
@@ -16,11 +15,10 @@
         <tbody>
             <?php foreach ($words as $word): ?>
             <tr>
-                <td><?= $this->Number->format($word->id) ?></td>
                 <td><?= $this->Html->link(h($word->english), 'http://endic.naver.com/search.nhn?sLn=en&searchOption=all&query='.$word->english.'#',['target' => '_blank']) ?></td>
                 <td><?= h($word->meaning) ?></td>
                 <td><?= $word->completed ? __('Yes') : __('No'); ?></td>
-                <td><?= $word->has('user') ? $this->Html->link($word->user->name, ['controller' => 'Users', 'action' => 'view', $word->user->id]) : '' ?></td>
+                <td><?= h($word->user->name) ?></td>
                 <td><?= h($word->created) ?></td>
                 <td><?= h($word->modified) ?></td>
                 <td class="actions">

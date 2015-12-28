@@ -69,4 +69,9 @@ class DiarysTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
+    
+    public function isOwnedBy($diaryId, $userId)
+	{
+		return $this->exists(['id' => $diaryId, 'user_id' => $userId]);
+	}
 }

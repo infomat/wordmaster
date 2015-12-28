@@ -5,8 +5,9 @@
         <?php
             echo $this->Form->input('subject');
             echo $this->Form->input('body');
-            echo $this->Form->input('user_id', ['options' => $users, 'empty' => true]);
         ?>
+        <label>Word Count</label>
+        <div id="word_statistic" class="well"></div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

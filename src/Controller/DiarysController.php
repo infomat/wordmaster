@@ -18,10 +18,17 @@ class DiarysController extends AppController
      */
     public function index()
     {
+        $loginuser = $this->Auth->user();
+        
         $this->paginate = [
             'contain' => ['Users']
         ];
-        $this->set('diarys', $this->paginate($this->Diarys));
+        
+        $Diarys = $this->Diarys->find('all')
+                    ->contain(['Users'])
+                    ->where(['user_id' => $loginuser['id']]);
+        
+        $this->set('diarys', $this->paginate($Diarys));
         $this->set('_serialize', ['diarys']);
     }
 
@@ -51,6 +58,9 @@ class DiarysController extends AppController
         $diary = $this->Diarys->newEntity();
         if ($this->request->is('post')) {
             $diary = $this->Diarys->patchEntity($diary, $this->request->data);
+            if ($this->Auth->user('id') != null) {
+                $diary->user_id = $this->Auth->user('id');
+            }
             if ($this->Diarys->save($diary)) {
                 $this->Flash->success(__('The diary has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -106,5 +116,27 @@ class DiarysController extends AppController
             $this->Flash->error(__('The diary could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+    
+    /**
+     * isAuthorized method
+     * Authorization depedning on role
+     * @param string|null $id Diary id.
+     * @return void
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['index', 'add']))
+            return true;
+        
+        // The owner of an order can edit and delete it
+        if (in_array($this->request->action, ['edit', 'delete', 'view'])) {
+            $diary_id = (int)$this->request->params['pass'][0];
+            if ($this->Diarys->isOwnedBy($diary_id, $user['id'])) {
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
     }
 }

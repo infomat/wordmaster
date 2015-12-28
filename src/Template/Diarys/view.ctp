@@ -1,17 +1,25 @@
 <div class="diarys view content">
-    <h3><?= h($diary->id) ?></h3>
+    <h3><?= h($diary->subject) ?></h3>
     <table class="vertical-table">
+        <tr>
+            <th><?= __('User') ?></th>
+            <td><?= $diary->has('user') ? $this->Html->link($diary->user->name, ['controller' => 'Users', 'action' => 'view', $diary->user->id]) : '' ?></td>
+        </tr>
         <tr>
             <th><?= __('Subject') ?></th>
             <td><?= h($diary->subject) ?></td>
         </tr>
         <tr>
-            <th><?= __('User') ?></th>
-            <td><?= $diary->has('user') ? $this->Html->link($diary->user->id, ['controller' => 'Users', 'action' => 'view', $diary->user->id]) : '' ?></td>
+            <th><?= __('Body') ?></th>
+            <td>
+                <p id = 'body'><?= $diary->body ?></p>
+            </td>
         </tr>
         <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($diary->id) ?></td>
+        <th><?= __('Word Count') ?></th>
+        <td>
+        <div id="word_statistic"></div>
+        </td>
         </tr>
         <tr>
             <th><?= __('Created') ?></th>
@@ -22,8 +30,5 @@
             <td><?= h($diary->modified) ?></td>
         </tr>
     </table>
-    <div class="row">
-        <h4><?= __('Body') ?></h4>
-        <?= $this->Text->autoParagraph(h($diary->body)); ?>
-    </div>
+
 </div>

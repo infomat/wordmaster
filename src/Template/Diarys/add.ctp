@@ -1,12 +1,13 @@
 <div class="diarys form content">
     <?= $this->Form->create($diary) ?>
     <fieldset>
-        <legend><?= __('Add Diary') ?></legend>
+        <legend><?= __('Write My Wonderful Journal') ?></legend>
         <?php
             echo $this->Form->input('subject');
-            echo $this->Form->input('body');
-            echo $this->Form->input('user_id', ['options' => $users, 'empty' => true]);
+            echo $this->Form->input('body',['rows' => 6]);
         ?>
+        <label>Word Count</label>
+        <div id="word_statistic" class="well"></div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

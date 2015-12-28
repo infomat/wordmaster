@@ -29,8 +29,15 @@
       <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Journal<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/Diarys">Journal List</a></li>
             <li><a href="/Diarys/add">Write Journal</a></li>
+            <li><a href="/Diarys">Journal List</a></li>
+          </ul>		          
+      </li>
+      <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dictionaries<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://endic.naver.com/?sLn=en" target="_blank">Naver</a></li>
+            <li><a href="http://www.macmillandictionary.com/" target="_blank">Macmillan</a></li>
           </ul>		          
       </li>
       <li><a href="#">Game</a></li>
@@ -38,7 +45,7 @@
       <form class="navbar-form navbar-left" role="search">
         <div id="searchbox" class="form-group">
           <input type="text" class="form-control" placeholder="Search Word">
-          <button type="submit" class="btn btn-success">Search</button>
+          <button id="search" type="submit" class="btn btn-success">Search</button>
         </div>
       </form>
       </ul>

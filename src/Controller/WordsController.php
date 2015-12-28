@@ -16,12 +16,24 @@ class WordsController extends AppController
      *
      * @return void
      */
-    public function index()
+    public function index($id = null)
     {
+        $loginuser = $this->Auth->user();
+        
         $this->paginate = [
             'contain' => ['Users']
         ];
-        $this->set('words', $this->paginate($this->Words));
+        
+        if ($id == null) {
+            $Words = $this->Words->find('all')
+                    ->contain(['Users'])
+                    ->where(['user_id' => $loginuser['id']]);
+        } else {
+            $Words = $this->Words->find('all')
+                    ->contain(['Users']);
+        }
+        
+        $this->set('words', $this->paginate($Words));
         $this->set('_serialize', ['words']);
     }
 
@@ -50,17 +62,26 @@ class WordsController extends AppController
     {
         $word = $this->Words->newEntity();
         if ($this->request->is('post')) {
+            //$newtags = explode(",", $this->request->data['newtag']);
+            //foreach ($newtags AS $newtag) {
+              //$articles = TableRegistry::get('Articles');
+              // array_push($this->request->data['tags'], new $tag);
+              // $this->request->data['tags']['tag'] = $newtag;
+            //}
+            //pr($this->request->data);
             $word = $this->Words->patchEntity($word, $this->request->data);
+            if ($this->Auth->user('id') != null) {
+                $word->user_id = $this->Auth->user('id');
+            }
             if ($this->Words->save($word)) {
                 $this->Flash->success(__('The word has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The word could not be saved. Please, try again.'));
+                $this->Flash->error(__('The word is duplicated. It could not be saved'));
             }
         }
-        $users = $this->Words->Users->find('list', ['limit' => 200]);
         $tags = $this->Words->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('word', 'users', 'tags'));
+        $this->set(compact('word', 'tags'));
         $this->set('_serialize', ['word']);
     }
 

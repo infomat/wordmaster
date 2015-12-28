@@ -1,5 +1,5 @@
 <div class="words view content">
-    <h3><?= h($word->id) ?></h3>
+    <h3><?= h($word->english) ?></h3>
     <table class="vertical-table">
         <tr>
             <th><?= __('English') ?></th>
@@ -10,16 +10,16 @@
             <td><?= h($word->meaning) ?></td>
         </tr>
         <tr>
-            <th><?= __('User') ?></th>
-            <td><?= $word->has('user') ? $this->Html->link($word->user->id, ['controller' => 'Users', 'action' => 'view', $word->user->id]) : '' ?></td>
+            <th><?= __('Example') ?></th>
+            <td><?= h($word->example) ?></td>
         </tr>
         <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($word->id) ?></td>
+            <th><?= __('User') ?></th>
+            <td><?= h($word->user->name) ?></td>
         </tr>
         <tr>
             <th><?= __('Completed') ?></th>
-            <td><?= $this->Number->format($word->completed) ?></td>
+            <td><?= $this->Number->format($word->completed) ? __('Yes') : __('No') ?></td>
         </tr>
         <tr>
             <th><?= __('Created') ?></th>

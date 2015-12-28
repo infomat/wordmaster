@@ -176,8 +176,7 @@ class UsersController extends AppController
             }
             return true;  
         }
-        // All registered users can add orders
-        // The owner of an order can edit and delete it
+
         if (in_array($this->request->action, ['edit','view'])) {
             $user_id = (int)$this->request->params['pass'][0];
             if ($user_id == $user['user_id']) {
