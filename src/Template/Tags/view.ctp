@@ -5,32 +5,24 @@
             <th><?= __('Name') ?></th>
             <td><?= h($tag->name) ?></td>
         </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($tag->id) ?></td>
-        </tr>
     </table>
     <div class="related">
         <h4><?= __('Related Words') ?></h4>
         <?php if (!empty($tag->words)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th><?= __('Id') ?></th>
                 <th><?= __('English') ?></th>
                 <th><?= __('Meaning') ?></th>
                 <th><?= __('Completed') ?></th>
-                <th><?= __('User Id') ?></th>
                 <th><?= __('Created') ?></th>
                 <th><?= __('Modified') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($tag->words as $words): ?>
             <tr>
-                <td><?= h($words->id) ?></td>
-                <td><?= h($words->english) ?></td>
+                <td><?= $this->Html->link(h($words->english), 'http://endic.naver.com/search.nhn?sLn=en&searchOption=all&query='.$words->english.'#',['target' => '_blank']) ?></td>
                 <td><?= h($words->meaning) ?></td>
-                <td><?= h($words->completed) ?></td>
-                <td><?= h($words->user_id) ?></td>
+                <td><?= h($words->completed) ? __('Yes'):__('No') ?></td>
                 <td><?= h($words->created) ?></td>
                 <td><?= h($words->modified) ?></td>
                 <td class="actions">

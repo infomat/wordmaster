@@ -11,6 +11,7 @@
             echo $this->Form->checkbox('completed', ['value' => 1, 'hiddenFields'=>0]); 
             echo '</label>';
             echo $this->Form->select('tags._ids', $tags, ['multiple' => 'checkbox']);
+            echo $this->Form->input('tag_string', ['type' => 'text']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -3,7 +3,7 @@
     <table class="vertical-table">
         <tr>
             <th><?= __('English') ?></th>
-            <td><?= h($word->english) ?></td>
+            <td><?= $this->Html->link(h($word->english), 'http://endic.naver.com/search.nhn?sLn=en&searchOption=all&query='.$word->english.'#',['target' => '_blank']) ?></td>
         </tr>
         <tr>
             <th><?= __('Meaning') ?></th>
@@ -35,13 +35,11 @@
         <?php if (!empty($word->tags)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th><?= __('Id') ?></th>
                 <th><?= __('Name') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($word->tags as $tags): ?>
             <tr>
-                <td><?= h($tags->id) ?></td>
                 <td><?= h($tags->name) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Tags', 'action' => 'view', $tags->id]) ?>

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Words Controller
@@ -27,12 +28,18 @@ class WordsController extends AppController
         if ($id == null) {
             $Words = $this->Words->find('all')
                     ->contain(['Users'])
-                    ->where(['user_id' => $loginuser['id']]);
+                    ->where(['user_id' => $loginuser['id']])
+                    ->andWhere(['completed ' => 0]);;
+        } else if ($id == 0) {
+            $Words = $this->Words->find('all')
+                    ->contain(['Users'])
+                    ->where(['user_id' => $loginuser['id']])
+                    ->andWhere(['completed ' => 1]);;
         } else {
             $Words = $this->Words->find('all')
                     ->contain(['Users']);
         }
-        
+        $this->set('index', $id);
         $this->set('words', $this->paginate($Words));
         $this->set('_serialize', ['words']);
     }
@@ -62,13 +69,6 @@ class WordsController extends AppController
     {
         $word = $this->Words->newEntity();
         if ($this->request->is('post')) {
-            //$newtags = explode(",", $this->request->data['newtag']);
-            //foreach ($newtags AS $newtag) {
-              //$articles = TableRegistry::get('Articles');
-              // array_push($this->request->data['tags'], new $tag);
-              // $this->request->data['tags']['tag'] = $newtag;
-            //}
-            //pr($this->request->data);
             $word = $this->Words->patchEntity($word, $this->request->data);
             if ($this->Auth->user('id') != null) {
                 $word->user_id = $this->Auth->user('id');

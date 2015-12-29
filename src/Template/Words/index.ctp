@@ -1,5 +1,13 @@
 <div class="words index content">
-    <h3><?= __('Words') ?></h3>
+    <?php
+    if ($index == null) {
+        echo '<h3>'.__('My Words').'</h3>';
+    } else if ($index == 0) {
+        echo '<h3>'.__('My Completed Words').'</h3>';
+    } else {
+        echo '<h3>'.__('All Words').'</h3>';
+    }
+    ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

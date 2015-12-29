@@ -20,8 +20,9 @@
           <ul class="dropdown-menu">
             <li><a href="/Words/add">Add New Word</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="/Words">Word List</a></li>
-            <li><a href='/Words/index/0'>All Word List</a></li>
+            <li><a href="/Words">My Words</a></li>
+            <li><a href="/Words/index/0">My Completed Words</a></li>
+            <li><a href='/Words/index/1'>All Words</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/Tags">Tag List</a></li>
           </ul>		          
@@ -42,7 +43,7 @@
       </li>
       <li><a href="#">Game</a></li>
       
-      <form class="navbar-form navbar-left" role="search">
+      <form class="navbar-form navbar-left" role="search" action="/Words/index">
         <div id="searchbox" class="form-group">
           <input type="text" class="form-control" placeholder="Search Word">
           <button id="search" type="submit" class="btn btn-success">Search</button>
@@ -50,17 +51,37 @@
       </form>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/pages/about">History</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">English Study<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://web2.uvcs.uvic.ca/courses/elc/studyzone/" target="_blank">ESL Study Zone</a></li>
+            <li><a href="http://www.usalearns.org/student-home" target="_blank">USA Learns</a></li>
+            <li><a href="http://www.eflnet.com/" target="_blank">ESL Practice</a></li>
+            <li><a href="http://www.englishpage.com/index.html" target="_blank">Free Online ESL Course</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="http://www.englishaccentcoach.com/index.aspx" target="_blank">Accent Coach</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="http://chompchomp.com/exercises.htm" target="_blank">Exercise Grammar Bytes</a></li>
+            <li><a href="http://grammar.ccc.commnet.edu/grammar/index2.htm" target="_blank">Grammar Exercise</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="http://ed.ted.com/lessons/comma-story-terisa-folaron" target="_blank">Comma Story</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="hhttp://esl.about.com/od/learningtechniques/fl/How-to-Use-a-Thesaurus-for-English-Learners.htm" target="_blank">How to improve vocabulary</a></li>
+            <li><a href="https://owl.english.purdue.edu/" target="_blank">Purdue Online Writing</a></li>
+            <li><a href="http://www.edb.utexas.edu/minliu/pbl/ESOL/" target="_blank">Writing five paragraph essay</a></li>
+          </ul>		          
+        </li>
+        <li><a href="#">History</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=$this->request->session()->read('Auth.User.name') ?><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <?php 
               if (is_null($this->request->session()->read('Auth.User.id'))) {
                 echo "<li><a href='/users/login'>Login</a></li>";  
               } else{
                 if($this->request->session()->read('Auth.User.role') == 'user'){
-                  echo "<li><a href='/users/profile'>My Profile</a></li>";
-                  echo "<li><a href='/users/edit/" . $this->request->session()->read('Auth.User.id') . "'>Edit Profile</a></li>";
+                  echo "<li><a href='#'>My Profile</a></li>";
+                  echo "<li><a href='#" . $this->request->session()->read('Auth.User.id') . "'>Edit Profile</a></li>";
                 }else{
                   echo "<li><a href='/users/userlist/'>User List</a></li>";
                   echo "<li><a href='/users/add/'>Add User</a></li>";

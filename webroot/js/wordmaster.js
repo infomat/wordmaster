@@ -11,7 +11,16 @@ $('#body').on({
         showCounter(this);
       }
 });
-    
+
+$( ":checkbox" ).click(function(){
+    var checkedString = [];
+    var merged;
+    $.each($("input[name='tags[_ids][]']:checked"), function(){  
+        checkedString.push($(this.nextSibling.textContent).selector);
+    });
+    $("input[name ='tag_string'").val(checkedString.join(", "));
+});
+
 });
 
 function wordCounter( val ){
