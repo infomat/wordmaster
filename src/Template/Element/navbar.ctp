@@ -76,7 +76,8 @@
           <ul class="dropdown-menu">
             <?php 
               if (is_null($this->request->session()->read('Auth.User.id'))) {
-                echo "<li><a href='/users/login'>Login</a></li>";  
+                echo "<li><a href='/users/login'>Login</a></li>";
+                echo "<li><a href='/users/signup'>Sign Up</a></li>";  
               } else{
                 if($this->request->session()->read('Auth.User.role') == 'user'){
                   echo "<li><a href='#'>My Profile</a></li>";
