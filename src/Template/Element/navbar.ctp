@@ -71,7 +71,6 @@
             <li><a href="http://www.edb.utexas.edu/minliu/pbl/ESOL/" target="_blank">Writing five paragraph essay</a></li>
           </ul>		          
         </li>
-        <li><a href="#">History</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if (is_null($this->request->session()->read('Auth.User.name'))) {echo __('My Account');} else {echo $this->request->session()->read('Auth.User.name');} ?><span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -81,6 +80,7 @@
               } else{
                 if($this->request->session()->read('Auth.User.role') == 'user'){
                   echo "<li><a href='#'>My Profile</a></li>";
+                  echo "<li><a href='#'>History</a></li>";
                   echo "<li><a href='#" . $this->request->session()->read('Auth.User.id') . "'>Edit Profile</a></li>";
                 }else{
                   echo "<li><a href='/users/userlist/'>User List</a></li>";
