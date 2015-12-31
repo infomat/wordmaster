@@ -1,6 +1,5 @@
 <?php
 namespace App\Model\Entity;
-
 use Cake\ORM\Entity;
 
 /**
@@ -30,4 +29,5 @@ class Diary extends Entity
         '*' => true,
         'id' => false,
     ];
+
 }

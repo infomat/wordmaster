@@ -41,11 +41,11 @@
             <li><a href="http://www.macmillandictionary.com/" target="_blank">Macmillan</a></li>
           </ul>		          
       </li>
-      <li><a href="#">Game</a></li>
+      <li><a href="/Words/game1">Game</a></li>
       
-      <form class="navbar-form navbar-left" role="search" action="/Words/index">
+      <form class="navbar-form navbar-left" role="search" action="/Words/search">
         <div id="searchbox" class="form-group">
-          <input type="text" class="form-control" placeholder="Search Word">
+          <input type="text" class="form-control" name="searchword" placeholder="Search Word">
           <button id="search" type="submit" class="btn btn-success">Search</button>
         </div>
       </form>
@@ -73,7 +73,7 @@
         </li>
         <li><a href="#">History</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=$this->request->session()->read('Auth.User.name') ?><span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if (is_null($this->request->session()->read('Auth.User.name'))) {echo __('My Account');} else {echo $this->request->session()->read('Auth.User.name');} ?><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <?php 
               if (is_null($this->request->session()->read('Auth.User.id'))) {

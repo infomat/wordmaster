@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\Time;
 
 /**
  * Words Controller
@@ -29,12 +30,12 @@ class WordsController extends AppController
             $Words = $this->Words->find('all')
                     ->contain(['Users'])
                     ->where(['user_id' => $loginuser['id']])
-                    ->andWhere(['completed ' => 0]);;
+                    ->andWhere(['completed ' => 0]);
         } else if ($id == 0) {
             $Words = $this->Words->find('all')
                     ->contain(['Users'])
                     ->where(['user_id' => $loginuser['id']])
-                    ->andWhere(['completed ' => 1]);;
+                    ->andWhere(['completed ' => 1]);
         } else {
             $Words = $this->Words->find('all')
                     ->contain(['Users']);
@@ -43,7 +44,74 @@ class WordsController extends AppController
         $this->set('words', $this->paginate($Words));
         $this->set('_serialize', ['words']);
     }
+    
+     /**
+     * Index method
+     *
+     * @return void
+     */
+    public function game1($id = null)
+    {
+        $loginuser = $this->Auth->user();
+        date_default_timezone_set('America/Toronto');
+        //To make review again after 1 day.
+        $refDateTime = Time::now()->subDays(1);
+        $refDateTime->setTime(23,59);
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            //make correct answer as completed
+            //store history
+            //calculate good answer
+            //add points
+            $correctIDs = explode(",", $this->request->data['correctIDs']);
+            if ($correctIDs[0] == '') {
+                $this->Flash->error(__('Oops! Nothing to update'));
+                return $this->redirect(['controller' => 'Words','action' => 'index']);
+            }
+            
+            foreach ($correctIDs AS $id) {
+                $correctProblem = $this->Words->get($id);
+                $correctProblem -> completed = 1; 
 
+                if (!$this->Words->save($correctProblem)) {
+                    $this->Flash->error(__('Oops! Result is not saved due to some reasons.'));
+                } 
+            }
+            $this->Flash->success(__('Thank you~'));
+            return $this->redirect(['controller' => 'Users','action' => 'index']);
+        }
+        $problems= $this->Words->find('all')
+                ->contain(['Users'])
+                ->where(['user_id' => $loginuser['id'],'completed ' => 0,'Words.created <' => $refDateTime]);
+
+        if ($problems->isEmpty()) {
+           $this->Flash->success(__('Great!!! You have nothing to review.')); 
+           return $this->redirect(['controller' => 'Words','action' => 'index']);
+        }
+        $this->set(compact('problems','loginuser'));
+    }
+    
+    /**
+     * Search method
+     *
+     * @return void
+     */
+    public function search($word = null)
+    {
+        
+        $loginuser = $this->Auth->user();
+        
+        $this->paginate = [
+            'contain' => ['Users']
+        ];
+                
+        $Words = $this->Words->find('all')
+                ->contain(['Users'])
+                ->where(['english LIKE' => '%'.$this->request->query['searchword'].'%']);
+   
+        $this->set('words', $this->paginate($Words));
+        $this->set('_serialize', ['words']);
+    }
     /**
      * View method
      *
@@ -140,7 +208,7 @@ class WordsController extends AppController
      */
     public function isAuthorized($user)
     {
-        if (in_array($this->request->action, ['index', 'add']))
+        if (in_array($this->request->action, ['index', 'add', 'search','game1']))
             return true;
         
         // The owner of an order can edit and delete it

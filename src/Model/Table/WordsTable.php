@@ -90,15 +90,12 @@ class WordsTable extends Table
         $validator
             ->notEmpty('english','need to fill in english word')
             ->requirePresence('english');
-
         
         $validator
-            ->notEmpty('meaning','need to fill in meaining')
-            ->requirePresence('meaning');
+            ->allowEmpty('meaning');
         
         $validator
-            ->notEmpty('example','need to fill in example')
-            ->requirePresence('example');
+            ->allowEmpty('example');
 
 
         $validator

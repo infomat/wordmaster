@@ -2,6 +2,7 @@
     <?= $this->Form->create($word) ?>
     <fieldset>
         <legend><?= __('Add Word') ?></legend>
+        <button type="button" class="btn btn-info right" id="lookup">Naver</button>
         <?php
             echo $this->Form->input('english');
             echo $this->Form->input('meaning',['rows' => '3']);
