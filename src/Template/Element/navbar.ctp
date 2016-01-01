@@ -48,7 +48,6 @@
             <li><a href="/Users/profile">Rank</a></li>
           </ul>		          
       </li>
-      <li><a href="/Words/game1">Review</a></li>
       
       <form class="navbar-form navbar-left" role="search" action="/Words/search">
         <div id="searchbox" class="form-group">
