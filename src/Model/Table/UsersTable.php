@@ -34,10 +34,10 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('Diary', [
+        $this->hasMany('Diarys', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('History', [
+        $this->hasMany('Historys', [
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Points', [

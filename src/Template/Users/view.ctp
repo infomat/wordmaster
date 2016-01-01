@@ -10,16 +10,16 @@
             <td><?= h($user->email) ?></td>
         </tr>
         <tr>
-            <th><?= __('Password') ?></th>
-            <td><?= h($user->password) ?></td>
-        </tr>
-        <tr>
             <th><?= __('Username') ?></th>
             <td><?= h($user->username) ?></td>
         </tr>
         <tr>
             <th><?= __('name') ?></th>
             <td><?= h($user->name) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('lastLoginTime') ?></th>
+            <td><?= h($user->lastLoginTime) ?></td>
         </tr>
         <tr>
             <th><?= __('Created') ?></th>
@@ -32,7 +32,7 @@
     </table>
     <div class="related">
         <h4><?= __('Related Diary') ?></h4>
-        <?php if (!empty($user->diary)): ?>
+        <?php if (!empty($user->diarys)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
@@ -43,7 +43,7 @@
                 <th><?= __('Modified') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($user->diary as $diary): ?>
+            <?php foreach ($user->diarys as $diary): ?>
             <tr>
                 <td><?= h($diary->id) ?></td>
                 <td><?= h($diary->subject) ?></td>
@@ -66,7 +66,7 @@
     </div>
     <div class="related">
         <h4><?= __('Related History') ?></h4>
-        <?php if (!empty($user->history)): ?>
+        <?php if (!empty($user->historys)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
@@ -75,7 +75,7 @@
                 <th><?= __('Duration') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($user->history as $history): ?>
+            <?php foreach ($user->historys as $history): ?>
             <tr>
                 <td><?= h($history->id) ?></td>
                 <td><?= h($history->user_id) ?></td>

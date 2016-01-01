@@ -44,7 +44,13 @@ class UsersController extends AppController
                 //save login time at auth to get access globally
                 $user['lastLoginTime'] = Time::now();
                 $this->Auth->setUser($user);
-
+                
+                $query = $this->Users->get($user['id'], [
+                    'contain' => []
+                ]);
+                $query->lastLoginTime = $user['lastLoginTime'];
+                $this->Users->save($query);
+                
                 //save to history with user ID
                 //this seems to be not good way..... 
                 $this->loadModel('Historys');
@@ -60,6 +66,7 @@ class UsersController extends AppController
 
     public function logout()
     {
+        
         return $this->redirect($this->Auth->logout());
     }
     
@@ -106,7 +113,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Diary', 'History', 'Points', 'Words']
+            'contain' => ['Diarys', 'Historys', 'Points', 'Words']
         ]);
         $this->set('user', $user);
         $this->set('_serialize', ['user']);

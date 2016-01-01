@@ -85,7 +85,7 @@
                   echo "<li><a href='/historys/'>History</a></li>";
                   echo "<li><a href='#" . $this->request->session()->read('Auth.User.id') . "'>Edit Profile</a></li>";
                 }else{
-                  echo "<li><a href='/users/userlist/'>User List</a></li>";
+                  echo "<li><a href='/users/index/'>User List</a></li>";
                   echo "<li><a href='/users/add/'>Add User</a></li>";
                 }
                   echo "<li role='separator' class='divider'></li>"; 
