@@ -41,8 +41,14 @@
             <li><a href="http://www.macmillandictionary.com/" target="_blank">Macmillan</a></li>
           </ul>		          
       </li>
-      <li><a href="/Words/game1">Review
-          </a></li>
+      <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Competition<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/Words/game1">Review</a></li>
+            <li><a href="/Users/profile">Rank</a></li>
+          </ul>		          
+      </li>
+      <li><a href="/Words/game1">Review</a></li>
       
       <form class="navbar-form navbar-left" role="search" action="/Words/search">
         <div id="searchbox" class="form-group">
@@ -81,9 +87,10 @@
                 echo "<li><a href='/users/signup'>Sign Up</a></li>";  
               } else{
                 if($this->request->session()->read('Auth.User.role') == 'user'){
-                  echo "<li><a href='#'>My Profile</a></li>";
+                  echo "<li><a href='/users/view/".$this->request->session()->read('Auth.User.id')."'>My Profile</a></li>";
+                  echo "<li><a href='/users/profile/'>Others Profile</a></li>";
                   echo "<li><a href='/historys/'>History</a></li>";
-                  echo "<li><a href='#" . $this->request->session()->read('Auth.User.id') . "'>Edit Profile</a></li>";
+                  echo "<li><a href='/users/edit/" . $this->request->session()->read('Auth.User.id') . "'>Edit Profile</a></li>";
                 }else{
                   echo "<li><a href='/users/index/'>User List</a></li>";
                   echo "<li><a href='/users/add/'>Add User</a></li>";

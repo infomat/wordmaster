@@ -7,7 +7,6 @@
                 <th><?= $this->Paginator->sort('name') ?></th>
                 <th><?= $this->Paginator->sort('login time') ?></th>
                 <th><?= $this->Paginator->sort('duration') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -17,11 +16,6 @@
                 <td><?= $history->has('user') ? $this->Html->link($history->user->name, ['controller' => 'Users', 'action' => 'view', $history->user->id]) : '' ?></td>
                 <td><?= h($history->created) ?></td>
                 <td><?= h($history->duration) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $history->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $history->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $history->id], ['confirm' => __('Are you sure you want to delete # {0}?', $history->id)]) ?>
-                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>

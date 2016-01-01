@@ -45,19 +45,15 @@ class UsersController extends AppController
                 $user['lastLoginTime'] = Time::now();
                 $this->Auth->setUser($user);
                 
+                //save last login data
                 $query = $this->Users->get($user['id'], [
                     'contain' => []
                 ]);
                 $query->lastLoginTime = $user['lastLoginTime'];
                 $this->Users->save($query);
                 
-                //save to history with user ID
-                //this seems to be not good way..... 
-                $this->loadModel('Historys');
-                $history = $this->Historys->newEntity();
-                $history->user_id = $user['id'];
-                $this->Historys->save($history);
-                
+            
+                //due to frequent write, user should finish study by logout to write history    
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error(__('Invalid username or password, try again'));
@@ -66,7 +62,19 @@ class UsersController extends AppController
 
     public function logout()
     {
+        $duration = date_diff($this->Auth->user('lastLoginTime'),Time::now());
+        $duration_min = $duration->days * 24 * 60;
+        $duration_min += $duration->h * 60;
+        $duration_min += $duration->i;
+        //save to history with user ID
+        //this seems to be not good way..... 
         
+        $this->loadModel('Historys');
+        $history = $this->Historys->newEntity();
+        $history->user_id = $this->Auth->user('id');
+        $history->lastLoginTime = $this->Auth->user('lastLoginTime');
+        $history->duration = $duration_min;
+        $this->Historys->save($history);
         return $this->redirect($this->Auth->logout());
     }
     
@@ -118,7 +126,23 @@ class UsersController extends AppController
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
     }
-
+    
+    /**
+     * profile method
+     *
+     * @param void
+     * @return void
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function profile()
+    {
+        $users = $this->Users->find('all', [
+            'contain' => ['Diarys', 'Historys', 'Points', 'Words', 
+                          'CompletedWords']]);
+        $this->set('users', $users);
+        $this->set('_serialize', ['user']);
+    }
+    
     /**
      * Add method
      *
@@ -196,9 +220,12 @@ class UsersController extends AppController
             return true;  
         }
 
+        if (in_array($this->request->action, ['profile']))
+            return true;
+        
         if (in_array($this->request->action, ['edit','view'])) {
             $user_id = (int)$this->request->params['pass'][0];
-            if ($user_id == $user['user_id']) {
+            if ($user_id == $user['id']) {
                 return true;
             }
         }

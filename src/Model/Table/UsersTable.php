@@ -44,7 +44,16 @@ class UsersTable extends Table
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Words', [
-            'foreignKey' => 'user_id'
+            'className' => 'Words',
+            'foreignKey' => 'user_id',
+        ]);
+        
+        $this->hasMany('CompletedWords', [
+            'className' => 'Words',
+            'foreignKey' => 'user_id',
+            'dependent' => true,			
+			'conditions' => ['completed' => 1],
+            'propertyName' => 'completed_words'
         ]);
     }
 
