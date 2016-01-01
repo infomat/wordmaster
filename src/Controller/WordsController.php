@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\Time;
+use Cake\Event\Event;
 
 /**
  * Words Controller
@@ -13,6 +14,21 @@ use Cake\I18n\Time;
 class WordsController extends AppController
 {
 
+    /* Initialize */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
+    
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        $this->Cookie->configKey('loginTime', 'path', '/');
+        $this->Cookie->configKey('loginTime', ['encryption'=>false, 'httpOnly' => false]);
+        
+    }
     /**
      * Index method
      *
@@ -78,7 +94,7 @@ class WordsController extends AppController
                 } 
             }
             $this->Flash->success(__('Thank you~'));
-            return $this->redirect(['controller' => 'Users','action' => 'index']);
+            return $this->redirect(['controller' => 'Words','action' => 'index']);
         }
         $problems= $this->Words->find('all')
                 ->contain(['Users'])
@@ -179,7 +195,26 @@ class WordsController extends AppController
         $this->set(compact('word', 'users', 'tags'));
         $this->set('_serialize', ['word']);
     }
-
+    /**
+     * Uncomplete method
+     * To change complete status from true to false when needed
+     * @param string|null $id Word id.
+     * @return void
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function uncomplete($id = null)
+    {
+        $word = $this->Words->get($id,['contain' => ['Users']]);
+        $word->completed = 0;
+    
+        if ($this->Words->save($word)) {
+            $this->Flash->success(__('The word has been uncompleted.'));
+            return $this->redirect(['action' => 'index']);
+        } else {
+            $this->Flash->error(__('The word could not be uncompleted. Please, try again.'));
+        }
+    }
+    
     /**
      * Delete method
      *
@@ -202,7 +237,7 @@ class WordsController extends AppController
     /**
      * isAuthorized method
      * Authorization depedning on role
-     * @param string|null $id Order id.
+     * @param string|null $id Word id.
      * @return void
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
@@ -211,8 +246,8 @@ class WordsController extends AppController
         if (in_array($this->request->action, ['index', 'add', 'search','game1']))
             return true;
         
-        // The owner of an order can edit and delete it
-        if (in_array($this->request->action, ['edit', 'delete', 'view'])) {
+        // The owner of an word can edit and delete it
+        if (in_array($this->request->action, ['edit', 'delete', 'view', 'uncomplete'])) {
             $word_id = (int)$this->request->params['pass'][0];
             if ($this->Words->isOwnedBy($word_id, $user['id'])) {
                 return true;

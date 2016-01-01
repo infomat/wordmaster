@@ -18,10 +18,16 @@ class HistorysController extends AppController
      */
     public function index()
     {
+        $loginuser = $this->Auth->user();
         $this->paginate = [
             'contain' => ['Users']
         ];
-        $this->set('historys', $this->paginate($this->Historys));
+        $Historys = $this->Historys->find('all')
+                    ->contain(['Users'])
+                    ->where(['user_id' => $loginuser['id']])
+                    ->order(['Historys.created' => 'DESC']);
+            
+        $this->set('historys', $this->paginate($Historys));
         $this->set('_serialize', ['historys']);
     }
 

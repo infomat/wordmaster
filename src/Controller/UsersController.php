@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\I18n\Time;
+use Cake\ORM\TableRegistry;
 
 /**
  * Users Controller
@@ -39,7 +41,17 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
+                //save login time at auth to get access globally
+                $user['lastLoginTime'] = Time::now();
                 $this->Auth->setUser($user);
+
+                //save to history with user ID
+                //this seems to be not good way..... 
+                $this->loadModel('Historys');
+                $history = $this->Historys->newEntity();
+                $history->user_id = $user['id'];
+                $this->Historys->save($history);
+                
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error(__('Invalid username or password, try again'));

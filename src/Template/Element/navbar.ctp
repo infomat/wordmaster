@@ -41,7 +41,8 @@
             <li><a href="http://www.macmillandictionary.com/" target="_blank">Macmillan</a></li>
           </ul>		          
       </li>
-      <li><a href="/Words/game1">Game</a></li>
+      <li><a href="/Words/game1">Review
+          </a></li>
       
       <form class="navbar-form navbar-left" role="search" action="/Words/search">
         <div id="searchbox" class="form-group">
@@ -81,7 +82,7 @@
               } else{
                 if($this->request->session()->read('Auth.User.role') == 'user'){
                   echo "<li><a href='#'>My Profile</a></li>";
-                  echo "<li><a href='#'>History</a></li>";
+                  echo "<li><a href='/historys/'>History</a></li>";
                   echo "<li><a href='#" . $this->request->session()->read('Auth.User.id') . "'>Edit Profile</a></li>";
                 }else{
                   echo "<li><a href='/users/userlist/'>User List</a></li>";

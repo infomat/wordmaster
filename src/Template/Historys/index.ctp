@@ -4,8 +4,8 @@
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('user_id') ?></th>
-                <th><?= $this->Paginator->sort('created') ?></th>
+                <th><?= $this->Paginator->sort('name') ?></th>
+                <th><?= $this->Paginator->sort('login time') ?></th>
                 <th><?= $this->Paginator->sort('duration') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -14,7 +14,7 @@
             <?php foreach ($historys as $history): ?>
             <tr>
                 <td><?= $this->Number->format($history->id) ?></td>
-                <td><?= $history->has('user') ? $this->Html->link($history->user->id, ['controller' => 'Users', 'action' => 'view', $history->user->id]) : '' ?></td>
+                <td><?= $history->has('user') ? $this->Html->link($history->user->name, ['controller' => 'Users', 'action' => 'view', $history->user->id]) : '' ?></td>
                 <td><?= h($history->created) ?></td>
                 <td><?= h($history->duration) ?></td>
                 <td class="actions">

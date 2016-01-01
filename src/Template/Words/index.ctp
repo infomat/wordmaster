@@ -33,6 +33,11 @@
                     <?= $this->Html->link(__('View'), ['action' => 'view', $word->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $word->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $word->id], ['confirm' => __('Are you sure you want to delete # {0}?', $word->id)]) ?>
+                    <?php 
+                    if ($index == '0') {
+                        echo $this->Form->postLink(__('Uncomplete'), ['controller' => 'Words','action' => 'uncomplete', $word->id], ['confirm' => __('Are you sure you want to uncomplete # {0}?', $word->id)]);
+                    } 
+                    ?>
                 </td>
             </tr>
             <?php endforeach; ?>
