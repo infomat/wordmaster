@@ -13,6 +13,12 @@ $('#body').on({
       }
 });
     
+$('#redeem-points').on({
+      input:function(){
+        calRemainedPts(this);
+      }
+});
+    
 $('#lookup').click(function(){
     var naverdic = 'http://endic.naver.com/search.nhn?sLn=en&searchOption=all&query=';
     var english = $("input[name=english]").val();
@@ -70,6 +76,10 @@ $( "#checkAnswer" ).click(function( event ) {
   }
 //set correct ID list to send to the server for changing status complete    
   $('#correctIDs').val(idList); 
+    
+//set mark for input to upload at the server
+  $('#finalmarks').val(markresult);
+    
 //display mark
   $('#mark')
         .text(resulttext)
@@ -99,6 +109,18 @@ $( ":checkbox" ).click(function(){
 
 });
 
+function roundToTwo(num) {    
+    return +(Math.round(num + "e+1")  + "e-1");
+}
+
+function calRemainedPts(form) {
+    var remainedPts = $('#remained-points');
+    var accuPts = $('#accu-points').val();
+    var redeemPts = form.value;
+    var sub = roundToTwo(accuPts - redeemPts);
+    remainedPts.val(sub);
+}
+
 function wordCounter( val ){
     return {
         charactersNoSpaces : val.replace(/\s+/g, '').length,
@@ -122,3 +144,4 @@ function showCounter(form) {
       ", Lines: "+ c.lines
     );
 }
+

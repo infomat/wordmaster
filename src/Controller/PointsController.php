@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
+use Cake\Core\Configure\Engine\PhpConfig;
 
 /**
  * Points Controller
@@ -48,6 +50,13 @@ class PointsController extends AppController
      */
     public function add()
     {
+        $rateAddWord = Configure::read('rateAddWord');
+        $rateFinishWord = Configure::read('rateFinishWord');
+        $rateJournal = Configure::read('rateJournal');
+        $rateJournalWord = Configure::read('rateJournalWord');
+        $rateHistory = Configure::read('rateHistory');
+        $accumulatedPoints=array();
+        
         $point = $this->Points->newEntity();
         if ($this->request->is('post')) {
             $point = $this->Points->patchEntity($point, $this->request->data);
@@ -58,9 +67,26 @@ class PointsController extends AppController
                 $this->Flash->error(__('The point could not be saved. Please, try again.'));
             }
         }
-        $users = $this->Points->Users->find('list', ['limit' => 200]);
-        $this->set(compact('point', 'users'));
-        $this->set('_serialize', ['point']);
+        $username = $this->Points->Users->find('list', ['keyField' => 'id','valueField' => 'name'], ['limit' => 200])
+                                        ->toArray();
+        
+        $users = $this->Points->Users->find('all',[
+            'contain' => ['Diarys', 'Historys', 'Points', 'Words', 
+                          'CompletedWords']
+        ]);
+        
+        //make array of most recent accumulated points
+        foreach ($users as $user) {
+            $accumulatedPoints[$user->id] = count($user->words)*$rateAddWord + count($user->completed_words)*$rateFinishWord +
+                count($user->diarys)*$rateJournal + count($user->historys)*$rateHistory;
+        }
+  
+        //make array of most recent remained points
+        $remainedPoints = $this->Points->find('list', ['keyField' => 'user_id', 'valueField' => 'remained_points'], ['limit' => 200])
+                                        -> order(['id'=>'ASC'])
+                                        -> toArray();
+                                              
+        $this->set(compact('point','accumulatedPoints','remainedPoints', 'username'));
     }
 
     /**
@@ -84,7 +110,8 @@ class PointsController extends AppController
                 $this->Flash->error(__('The point could not be saved. Please, try again.'));
             }
         }
-        $users = $this->Points->Users->find('list', ['limit' => 200]);
+        $users = $this->Points->Users->find('list', ['keyField' => 'id','valueField' => 'name'], ['limit' => 200])
+                                        ->toArray();
         $this->set(compact('point', 'users'));
         $this->set('_serialize', ['point']);
     }
@@ -106,5 +133,22 @@ class PointsController extends AppController
             $this->Flash->error(__('The point could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+    
+        /**
+     * isAuthorized method
+     * Authorization depedning on role
+     * @param string|null $id Word id.
+     * @return void
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function isAuthorized($user)
+    {
+        if ($user['role'] == 'admin') 
+            return true; 
+        if (in_array($this->request->action, ['index']))
+            return true;
+    
+        return parent::isAuthorized($user);
     }
 }

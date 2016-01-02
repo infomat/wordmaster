@@ -1,5 +1,6 @@
 <div class="users view content">
-    <h3><?= h($user->id) ?></h3>
+    <h3>TOTAL PTS: <?= count($user->words)*$rateAddWord+count($user->completed_words)*$rateFinishWord+count($user->diarys)*$rateJournal+count($user->historys)*$rateHistory ?></h3>
+    <p class=wmnotice>*Points are caculated with following fomula: (# of Word)* <?= $rateAddWord ?> + (#ofCompleted Word)*<?= $rateFinishWord ?> + (#ofJournal)*<?= $rateJournal ?> + (#ofHistory)*<?= $rateHistory ?></p>
     <table class="vertical-table">
         <tr>
             <th><?= __('Role') ?></th>
@@ -89,24 +90,17 @@
         <?php if (!empty($user->points)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th><?= __('Points') ?></th>
+                <th><?= __('Accumulated Points') ?></th>
+                <th><?= __('Remained Points') ?></th>
                 <th><?= __('Created') ?></th>
                 <th><?= __('Modified') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($user->points as $points): ?>
             <tr>
-                <td><?= h($points->points) ?></td>
+                <td><?= h($points->accu_points) ?></td>
+                <td><?= h($points->remained_points) ?></td>
                 <td><?= h($points->created) ?></td>
                 <td><?= h($points->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Points', 'action' => 'view', $points->id]) ?>
-
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Points', 'action' => 'edit', $points->id]) ?>
-
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Points', 'action' => 'delete', $points->id], ['confirm' => __('Are you sure you want to delete # {0}?', $points->id)]) ?>
-
-                </td>
             </tr>
             <?php endforeach; ?>
         </table>

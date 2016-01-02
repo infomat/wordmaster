@@ -16,6 +16,8 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Core\Configure;
+use Cake\Core\Configure\Engine\PhpConfig;
 
 /**
  * Application Controller
@@ -63,6 +65,11 @@ class AppController extends Controller
                 'action' => 'index'
             ]
         ]);
+        Configure::write('rateAddWord', '0.2');
+        Configure::write('rateFinishWord', '0.2');
+        Configure::write('rateJournal', '1');
+        Configure::write('rateJournalWord', '0.1');
+        Configure::write('rateHistory', '0.1');
     }
     
     public function isAuthorized($user)

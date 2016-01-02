@@ -4,8 +4,10 @@
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('points') ?></th>
-                <th><?= $this->Paginator->sort('user_id') ?></th>
+                <th><?= $this->Paginator->sort('name') ?></th>
+                <th><?= $this->Paginator->sort('accu_points') ?></th>
+                <th><?= $this->Paginator->sort('remained_points') ?></th>
+                <th><?= $this->Paginator->sort('comments') ?></th>
                 <th><?= $this->Paginator->sort('created') ?></th>
                 <th><?= $this->Paginator->sort('modified') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
@@ -15,8 +17,10 @@
             <?php foreach ($points as $point): ?>
             <tr>
                 <td><?= $this->Number->format($point->id) ?></td>
-                <td><?= $this->Number->format($point->points) ?></td>
-                <td><?= $point->has('user') ? $this->Html->link($point->user->id, ['controller' => 'Users', 'action' => 'view', $point->user->id]) : '' ?></td>
+                <td><?= $point->has('user') ? $this->Html->link($point->user->name, ['controller' => 'Users', 'action' => 'view', $point->user->id]) : '' ?></td>
+                <td><?= $this->Number->format($point->accu_points) ?></td>
+                <td><?= $this->Number->format($point->remained_points) ?></td>
+                <td><?= h($point->comments) ?></td>
                 <td><?= h($point->created) ?></td>
                 <td><?= h($point->modified) ?></td>
                 <td class="actions">

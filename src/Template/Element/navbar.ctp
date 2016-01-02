@@ -85,14 +85,19 @@
                 echo "<li><a href='/users/login'>Login</a></li>";
                 echo "<li><a href='/users/signup'>Sign Up</a></li>";  
               } else{
-                if($this->request->session()->read('Auth.User.role') == 'user'){
+                if ($this->request->session()->read('Auth.User.role') == 'user'){
                   echo "<li><a href='/users/view/".$this->request->session()->read('Auth.User.id')."'>My Profile</a></li>";
-                  echo "<li><a href='/users/profile/'>Others Profile</a></li>";
-                  echo "<li><a href='/historys/'>History</a></li>";
                   echo "<li><a href='/users/edit/" . $this->request->session()->read('Auth.User.id') . "'>Edit Profile</a></li>";
-                }else{
+                  echo "<li role='separator' class='divider'></li>"; 
+                  echo "<li><a href='/historys/'>History</a></li>";
+                  echo "<li><a href='/points/index'>List Points</a></li>";
+                } else{
                   echo "<li><a href='/users/index/'>User List</a></li>";
                   echo "<li><a href='/users/add/'>Add User</a></li>";
+                  echo "<li role='separator' class='divider'></li>";
+                  echo "<li><a href='/points/index'>List Points</a></li>";
+                  echo "<li><a href='/Users/profile'>Rank</a></li>";
+                  echo "<li><a href='/points/add'>Add Points</a></li>";
                 }
                   echo "<li role='separator' class='divider'></li>"; 
                   echo "<li>" . $this->Html->link('Log Out', ['controller' => 'Users', 'action' => 'logout']) . "</li>";

@@ -19,9 +19,12 @@ class PointsTableTest extends TestCase
     public $fixtures = [
         'app.points',
         'app.users',
-        'app.diary',
-        'app.history',
-        'app.words'
+        'app.diarys',
+        'app.historys',
+        'app.words',
+        'app.tags',
+        'app.words_tags',
+        'app.completed_words'
     ];
 
     /**

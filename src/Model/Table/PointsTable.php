@@ -49,8 +49,15 @@ class PointsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->add('points', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('points');
+            ->add('accu_points', 'valid', ['rule' => 'numeric'])
+            ->allowEmpty('accu_points');
+
+        $validator
+            ->allowEmpty('comments');
+
+        $validator
+            ->add('remained_points', 'valid', ['rule' => 'numeric'])
+            ->allowEmpty('remained_points');
 
         return $validator;
     }

@@ -1,4 +1,4 @@
-<div class="words index content">
+<div class="words view content">
     <?= $this->Form->create($problems) ?>
     <table class="vertical-table">
     <?php $index = 1; ?>
@@ -38,6 +38,7 @@
     </div>
     <p hidden id='index'><?= $index-1 ?></p>
     <input type="text" id='correctIDs' name='correctIDs' class='hidden'></input>
+    <input type="text" id='finalmarks' name='finalmarks' class='hidden'></input>
     <?php
     echo $this->Form->button('Try Again', ['id' => 'reset','class' => 'hidden']);
     echo $this->Form->button('Submit', ['type' => 'submit','id'=>'submitResult','class' => 'hidden']);

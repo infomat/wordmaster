@@ -68,8 +68,18 @@ class WordsController extends AppController
      */
     public function game1($id = null)
     {
-        $loginuser = $this->Auth->user();
         date_default_timezone_set('America/Toronto');
+        
+        $loginuser = $this->Auth->user();
+        $this->loadModel('Historys');
+        $tryCount = $this->Historys->find()
+                        ->where(['user_id' => $loginuser['id'],'mark is not' => null,'DATE(created)' => date('y-m-d')])
+                        ->count();
+        if ($tryCount > 0){
+            $this->Flash->error(__('Oops! You already tried reviewing today'));
+                return $this->redirect(['controller' => 'Words','action' => 'index']);
+        }
+        
         //To make review again after 1 day.
         $refDateTime = Time::now()->subDays(1);
         $refDateTime->setTime(23,59);
@@ -93,6 +103,16 @@ class WordsController extends AppController
                     $this->Flash->error(__('Oops! Result is not saved due to some reasons.'));
                 } 
             }
+            
+            //save review data
+            $this->loadModel('Historys');
+            $history = $this->Historys->newEntity();
+            $history->user_id = $this->Auth->user('id');
+            $history->lastLoginTime = $this->Auth->user('lastLoginTime');
+            $history->duration = 0;
+            $history->mark = $this->request->data['finalmarks'];
+            $this->Historys->save($history);
+            
             $this->Flash->success(__('Thank you~'));
             return $this->redirect(['controller' => 'Words','action' => 'index']);
         }
@@ -243,6 +263,9 @@ class WordsController extends AppController
      */
     public function isAuthorized($user)
     {
+        if ($user['role'] == 'admin') 
+            return true; 
+        
         if (in_array($this->request->action, ['index', 'add', 'search','game1']))
             return true;
         

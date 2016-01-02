@@ -7,11 +7,13 @@ use Cake\ORM\Entity;
  * Point Entity.
  *
  * @property int $id
- * @property int $points
+ * @property int $accu_points
  * @property int $user_id
  * @property \App\Model\Entity\User $user
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
+ * @property string $comments
+ * @property int $remained_points
  */
 class Point extends Entity
 {

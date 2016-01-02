@@ -10,7 +10,7 @@
                 <th><?= $this->Paginator->sort('Words Finished') ?></th>
                 <th><?= $this->Paginator->sort('Journals') ?></th>
                 <th><?= $this->Paginator->sort('History') ?></th>
-                <th><?= __('Total') ?></th>
+                <th><?= __('Total POINTS') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -23,9 +23,10 @@
                 <td><?= count($user->completed_words) ?></td>
                 <td><?= count($user->diarys) ?></td>
                 <td><?= count($user->historys) ?></td>
-                <td><?= count($user->words)+count($user->completed_words)*1.2+count($user->diarys)*1.5+count($user->historys)*0.2 ?></td>
+                <td><?= count($user->words)*$rateAddWord+count($user->completed_words)*$rateFinishWord+count($user->diarys)*$rateJournal+count($user->historys)*$rateHistory ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    <p class=wmnotice>*Points are caculated with following fomula: (# of Word)* <?= $rateAddWord ?> + (#ofCompleted Word)*<?= $rateFinishWord ?> + (#ofJournal)*<?= $rateJournal ?> + (#ofHistory)*<?= $rateHistory ?></p>
 </div>

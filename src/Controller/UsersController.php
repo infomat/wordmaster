@@ -5,6 +5,8 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\I18n\Time;
 use Cake\ORM\TableRegistry;
+use Cake\Core\Configure;
+use Cake\Core\Configure\Engine\PhpConfig;
 
 /**
  * Users Controller
@@ -19,6 +21,7 @@ class UsersController extends AppController
         'Users.user_id' => 'asc'
         ]
     ];
+    
     
     /* Initialize */
     public function initialize()
@@ -45,14 +48,6 @@ class UsersController extends AppController
                 $user['lastLoginTime'] = Time::now();
                 $this->Auth->setUser($user);
                 
-                //save last login data
-                $query = $this->Users->get($user['id'], [
-                    'contain' => []
-                ]);
-                $query->lastLoginTime = $user['lastLoginTime'];
-                $this->Users->save($query);
-                
-            
                 //due to frequent write, user should finish study by logout to write history    
                 return $this->redirect($this->Auth->redirectUrl());
             }
@@ -121,10 +116,14 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Diarys', 'Historys', 'Points', 'Words']
+            'contain' => ['Diarys', 'Historys', 'Points', 'Words','CompletedWords']
         ]);
-        $this->set('user', $user);
-        $this->set('_serialize', ['user']);
+        $rateAddWord = Configure::read('rateAddWord');
+        $rateFinishWord = Configure::read('rateFinishWord');
+        $rateJournal = Configure::read('rateJournal');
+        $rateJournalWord = Configure::read('rateJournalWord');
+        $rateHistory = Configure::read('rateHistory');
+        $this->set(compact('user','rateAddWord','rateFinishWord','rateJournal','rateJournalWord','rateHistory'));
     }
     
     /**
@@ -138,9 +137,14 @@ class UsersController extends AppController
     {
         $users = $this->Users->find('all', [
             'contain' => ['Diarys', 'Historys', 'Points', 'Words', 
-                          'CompletedWords']]);
-        $this->set('users', $users);
-        $this->set('_serialize', ['user']);
+                          'CompletedWords']
+        ]);
+        $rateAddWord = Configure::read('rateAddWord');
+        $rateFinishWord = Configure::read('rateFinishWord');
+        $rateJournal = Configure::read('rateJournal');
+        $rateJournalWord = Configure::read('rateJournalWord');
+        $rateHistory = Configure::read('rateHistory');
+        $this->set(compact('users','rateAddWord','rateFinishWord','rateJournal','rateJournalWord','rateHistory'));
     }
     
     /**
