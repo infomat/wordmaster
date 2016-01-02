@@ -173,6 +173,7 @@ class WordsController extends AppController
     {
         $word = $this->Words->newEntity();
         if ($this->request->is('post')) {
+            $this->request->data['english'] = trim($this->request->data['english']);
             $word = $this->Words->patchEntity($word, $this->request->data);
             if ($this->Auth->user('id') != null) {
                 $word->user_id = $this->Auth->user('id');
@@ -202,6 +203,7 @@ class WordsController extends AppController
             'contain' => ['Tags']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->request->data['english'] = trim($this->request->data['english']);
             $word = $this->Words->patchEntity($word, $this->request->data);
             if ($this->Words->save($word)) {
                 $this->Flash->success(__('The word has been saved.'));
