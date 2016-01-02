@@ -27,7 +27,7 @@
             </td>
         </tr>
         <tr hidden>
-            <th>Answer<h3 id='answer_<?= $index ?>'><?=$word->english?></h3></th>
+            <th>Answer<h3 id='answer_<?= $index ?>'><?=substr($word->english,0,2).str_repeat("_ ",strlen($word->english)-2)?></h3></th>
             <td><span id='result_<?= $index ?>'></span></td>
         </tr>
         <?php $index++; ?>
