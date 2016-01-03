@@ -51,10 +51,12 @@ class WordsController extends AppController
             $Words = $this->Words->find('all')
                     ->contain(['Users'])
                     ->where(['user_id' => $loginuser['id']])
-                    ->andWhere(['completed ' => 1]);
+                    ->andWhere(['completed ' => 1])
+                    ->order(['Words.modified' => 'DESC']);
         } else {
             $Words = $this->Words->find('all')
-                    ->contain(['Users']);
+                    ->contain(['Users'])
+                    ->order(['Words.created' => 'DESC']);
         }
         $this->set('index', $id);
         $this->set('words', $this->paginate($Words));
