@@ -47,7 +47,11 @@ class HistorysTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create');
-
+        
+        $validator
+            ->requirePresence('user_id', 'create')
+            ->notEmpty('user_id');
+        
         $validator
             ->add('duration', 'valid', ['rule' => 'datetime'])
             ->allowEmpty('duration');

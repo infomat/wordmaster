@@ -2,8 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Core\Configure;
-use Cake\Core\Configure\Engine\PhpConfig;
+
 
 /**
  * Points Controller
@@ -50,11 +49,6 @@ class PointsController extends AppController
      */
     public function add()
     {
-        $rateAddWord = Configure::read('rateAddWord');
-        $rateFinishWord = Configure::read('rateFinishWord');
-        $rateJournal = Configure::read('rateJournal');
-        $rateJournalWord = Configure::read('rateJournalWord');
-        $rateHistory = Configure::read('rateHistory');
         $accumulatedPoints=array();
         
         $point = $this->Points->newEntity();
@@ -77,8 +71,10 @@ class PointsController extends AppController
         
         //make array of most recent accumulated points
         foreach ($users as $user) {
-            $accumulatedPoints[$user->id] = count($user->words)*$rateAddWord + count($user->completed_words)*$rateFinishWord +
-                count($user->diarys)*$rateJournal + count($user->historys)*$rateHistory;
+            $accumulatedPoints[$user->id] = count($user->words)*$this->rateAddWord + 
+                count($user->completed_words)*$this->rateFinishWord +
+                count($user->diarys)*$this->rateJournal + 
+                count($user->historys)*$this->rateHistory;
         }
   
         //make array of most recent remained points

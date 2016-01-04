@@ -5,8 +5,6 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\I18n\Time;
 use Cake\ORM\TableRegistry;
-use Cake\Core\Configure;
-use Cake\Core\Configure\Engine\PhpConfig;
 
 /**
  * Users Controller
@@ -118,11 +116,11 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['Diarys', 'Historys', 'Points', 'Words','CompletedWords']
         ]);
-        $rateAddWord = Configure::read('rateAddWord');
-        $rateFinishWord = Configure::read('rateFinishWord');
-        $rateJournal = Configure::read('rateJournal');
-        $rateJournalWord = Configure::read('rateJournalWord');
-        $rateHistory = Configure::read('rateHistory');
+        $rateAddWord = $this->rateAddWord;
+        $rateFinishWord = $this->rateFinishWord;
+        $rateJournal = $this->rateJournal;
+        $rateJournalWord = $this->rateJournalWord;
+        $rateHistory = $this->rateHistory;
         $this->set(compact('user','rateAddWord','rateFinishWord','rateJournal','rateJournalWord','rateHistory'));
     }
     
@@ -139,11 +137,11 @@ class UsersController extends AppController
             'contain' => ['Diarys', 'Historys', 'Points', 'Words', 
                           'CompletedWords']
         ]);
-        $rateAddWord = Configure::read('rateAddWord');
-        $rateFinishWord = Configure::read('rateFinishWord');
-        $rateJournal = Configure::read('rateJournal');
-        $rateJournalWord = Configure::read('rateJournalWord');
-        $rateHistory = Configure::read('rateHistory');
+        $rateAddWord = $this->rateAddWord;
+        $rateFinishWord = $this->rateFinishWord;
+        $rateJournal = $this->rateJournal;
+        $rateJournalWord = $this->rateJournalWord;
+        $rateHistory = $this->rateHistory;
         $this->set(compact('users','rateAddWord','rateFinishWord','rateJournal','rateJournalWord','rateHistory'));
     }
     

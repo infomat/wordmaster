@@ -29,6 +29,12 @@ use Cake\Core\Configure\Engine\PhpConfig;
  */
 class AppController extends Controller
 {
+    
+    public $rateAddWord = 0.2;
+    public $rateFinishWord = 0.2;
+    public $rateJournal = 1;
+    public $rateJournalWord = 0.1; 
+    public $rateHistory = 0.1;
 
     /**
      * Initialization hook method.

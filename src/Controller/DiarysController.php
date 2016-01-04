@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Mailer\Email;
 /**
  * Diarys Controller
  *
@@ -54,7 +54,8 @@ class DiarysController extends AppController
      * @return void Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
+    {        
+        $loginuser = $this->Auth->user();
         $diary = $this->Diarys->newEntity();
         if ($this->request->is('post')) {
             $diary = $this->Diarys->patchEntity($diary, $this->request->data);
@@ -62,8 +63,24 @@ class DiarysController extends AppController
                 $diary->user_id = $this->Auth->user('id');
             }
             if ($this->Diarys->save($diary)) {
-                $this->Flash->success(__('The diary has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                $this->loadModel('Users');
+                $user = $this->Users->get($this->Auth->user('id'), [
+                    'contain' => ['Diarys', 'Historys', 'Points', 'Words','CompletedWords']
+                ]);
+                
+                $accumulatedPoints = count($user->words)*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
+                                        count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory;
+                $lastPoints = end($user->points)->remained_points;
+
+                if (($accumulatedPoints - $lastPoints) > 100) {
+                    $this->Flash->success(__('Congratulations!! 100 points reached.'));
+                    //send Email to admin, if user has reached 100 points which worth $10
+                    $this->commentmail(($accumulatedPoints - $lastPoints), $loginuser['name'], 'cch.choi@gmail.com');
+                    return $this->redirect(['controller' => 'Points','action' => 'index']);
+                } else {
+                   $this->Flash->success(__('The diary has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                }
             } else {
                 $this->Flash->error(__('The diary could not be saved. Please, try again.'));
             }
@@ -138,5 +155,51 @@ class DiarysController extends AppController
             }
         }
         return parent::isAuthorized($user);
+    }
+    
+    /**
+     * commentmail method
+     * Send Email using postmark addon
+     * @param string|null $id Word id.
+     * @return void
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+     public function commentmail($points, $name, $email)
+    {
+        $subject = $name." have reached ".$points." points to redeem.";
+        $mailText = "Hello, \r\n".
+            $name."has gained ".$points." points to redeem, since it has been redeemed.\r\n".
+            "http://sunnyword.herokuapp.com/points/index";
+        self::sendmail($email, $subject, $mailText);
+    }
+    
+    /**
+     * sendmail method
+     * Send Email using postmark addon
+     * @param string|null $id Word id.
+     * @return void
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function sendmail($email, $subject, $mailText)
+    {  
+        
+        $mail = "mail";
+        $loginuser = $this->Auth->user();
+        $data = [];
+
+        $data = [
+            'mailFrom' => 'cchoi1803@conestogac.on.ca',
+            'email' => $email,
+            'mailSubject' => $subject,
+            'mailText' => $mailText
+        ];
+
+        $email = new Email('default');
+        $email->from(['cchoi1803@conestogac.on.ca' => 'Word Master']);
+        $email->to($data['email']);
+        $email->subject($data['mailSubject']); 
+        $email->send($data['mailText']); 
+
+        $this->set('result', $data);    
     }
 }

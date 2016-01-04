@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\Time;
 use Cake\Event\Event;
+use Cake\Mailer\Email;
 
 /**
  * Words Controller
@@ -70,6 +71,8 @@ class WordsController extends AppController
      */
     public function game1($id = null)
     {
+        $loginuser = $this->Auth->user();
+        
         date_default_timezone_set('America/Toronto');
         
         $loginuser = $this->Auth->user();
@@ -115,8 +118,24 @@ class WordsController extends AppController
             $history->mark = $this->request->data['finalmarks'];
             $this->Historys->save($history);
             
-            $this->Flash->success(__('Thank you~'));
-            return $this->redirect(['controller' => 'Words','action' => 'index']);
+            $this->loadModel('Users');
+            $user = $this->Users->get($this->Auth->user('id'), [
+                'contain' => ['Diarys', 'Historys', 'Points', 'Words','CompletedWords']
+            ]);
+
+            $accumulatedPoints = count($user->words)*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
+                                    count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory;
+            $lastPoints = end($user->points)->remained_points;
+
+            if (($accumulatedPoints - $lastPoints) > 100) {
+                $this->Flash->success(__('Congratulations!! 100 points reached.'));
+                //send Email to admin, if user has reached 100 points which worth $10
+                $this->commentmail(($accumulatedPoints - $lastPoints), $loginuser['name'], 'cch.choi@gmail.com');
+                return $this->redirect(['controller' => 'Points','action' => 'index']);
+            } else {
+                $this->Flash->success(__('Thank you~'));
+                return $this->redirect(['controller' => 'Words','action' => 'index']);
+            }
         }
         $problems= $this->Words->find('all')
                 ->contain(['Users'])
@@ -173,16 +192,37 @@ class WordsController extends AppController
      */
     public function add()
     {
+        $loginuser = $this->Auth->user();
+        
         $word = $this->Words->newEntity();
         if ($this->request->is('post')) {
             $this->request->data['english'] = trim($this->request->data['english']);
             $word = $this->Words->patchEntity($word, $this->request->data);
             if ($this->Auth->user('id') != null) {
                 $word->user_id = $this->Auth->user('id');
-            }
+            }  
+            
             if ($this->Words->save($word)) {
-                $this->Flash->success(__('The word has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                $this->loadModel('Users');
+                $user = $this->Users->get($word->user_id, [
+                    'contain' => ['Diarys', 'Historys', 'Points', 'Words','CompletedWords']
+                ]);
+                
+                $accumulatedPoints = count($user->words)*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
+                                        count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory;
+                
+                $lastPoints = end($user->points)->remained_points;
+
+                if (($accumulatedPoints - $lastPoints) > 100) {
+                    $this->Flash->success(__('Congratulations!! 100 points reached.'));
+                    //send Email to admin, if user has reached 100 points which worth $10
+                    $this->commentmail(($accumulatedPoints - $lastPoints), $loginuser['name'], 'cch.choi@gmail.com');
+                    return $this->redirect(['controller' => 'Points','action' => 'index']);
+                } else {
+                    $this->Flash->success(__('The word has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                }
+                
             } else {
                 $this->Flash->error(__('The word is duplicated. It could not be saved'));
             }
@@ -281,5 +321,52 @@ class WordsController extends AppController
             }
         }
         return parent::isAuthorized($user);
+    }
+    
+    /**
+     * commentmail method
+     * Send Email using postmark addon
+     * @param string|null $id Word id.
+     * @return void
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    
+    public function commentmail($points, $name, $email)
+    {
+        $subject = $name." have reached ".$points." points to redeem.";
+        $mailText = "Hello, \r\n".
+            $name."has gained ".$points." points to redeem, since it has been redeemed.\r\n".
+            "http://sunnyword.herokuapp.com/points/index";
+        self::sendmail($email, $subject, $mailText);
+    }
+    
+    /**
+     * sendmail method
+     * Send Email using postmark addon
+     * @param string|null $id Word id.
+     * @return void
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function sendmail($email, $subject, $mailText)
+    {  
+        
+        $mail = "mail";
+        $loginuser = $this->Auth->user();
+        $data = [];
+
+        $data = [
+            'mailFrom' => 'cchoi1803@conestogac.on.ca',
+            'email' => $email,
+            'mailSubject' => $subject,
+            'mailText' => $mailText
+        ];
+
+        $email = new Email('default');
+        $email->from(['cchoi1803@conestogac.on.ca' => 'Word Master']);
+        $email->to($data['email']);
+        $email->subject($data['mailSubject']); 
+        $email->send($data['mailText']); 
+
+        $this->set('result', $data);    
     }
 }
