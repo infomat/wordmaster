@@ -3,6 +3,9 @@
     padding: 3pt;
 }
 
+#body {
+    text-align:left;
+}
 .view-comment {
     background: #EFEBE9;
     padding-left: 20px;

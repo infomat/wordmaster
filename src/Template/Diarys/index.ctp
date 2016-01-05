@@ -1,5 +1,5 @@
 <div class="diarys index content">
-    <h3><?= __('Diarys') ?></h3>
+    <h3><?= __('Articles') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

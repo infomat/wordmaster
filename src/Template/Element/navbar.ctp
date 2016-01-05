@@ -28,10 +28,10 @@
           </ul>		          
       </li>
       <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Journal<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Article<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/Diarys/add">Write Journal</a></li>
-            <li><a href="/Diarys">Journal List</a></li>
+            <li><a href="/Diarys/add">Write Article</a></li>
+            <li><a href="/Diarys">My Article List</a></li>
           </ul>		          
       </li>
       <li class="dropdown">
@@ -46,6 +46,8 @@
           <ul class="dropdown-menu">
             <li><a href="/Words/game1">Review</a></li>
             <li><a href="/Users/profile">Rank</a></li>
+            <li role='separator' class='divider'></li>
+            <li><a href="/Diarys/index/1">Articles about English</a></li>
           </ul>		          
       </li>
       

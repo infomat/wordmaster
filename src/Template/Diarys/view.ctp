@@ -12,7 +12,9 @@
         <tr>
             <th><?= __('Body') ?></th>
             <td>
-                <p id = 'body'><?= $diary->body ?></p>
+                <div id = 'body'>
+                    <?= $this->Text->autoParagraph($diary->body)?>
+                </div>
             </td>
         </tr>
         <tr>

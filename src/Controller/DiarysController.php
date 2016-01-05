@@ -16,7 +16,7 @@ class DiarysController extends AppController
      *
      * @return void
      */
-    public function index()
+    public function index($id = null)
     {
         $loginuser = $this->Auth->user();
         
@@ -24,9 +24,15 @@ class DiarysController extends AppController
             'contain' => ['Users']
         ];
         
-        $Diarys = $this->Diarys->find('all')
-                    ->contain(['Users'])
-                    ->where(['user_id' => $loginuser['id']]);
+        if ($id == null) {
+            $Diarys = $this->Diarys->find('all')
+                        ->contain(['Users'])
+                        ->where(['user_id' => $loginuser['id']]);
+        } else {
+            $Diarys = $this->Diarys->find('all')
+                        ->contain(['Users'])
+                        ->where(['Users.role' => 'admin']);
+        }
         
         $this->set('diarys', $this->paginate($Diarys));
         $this->set('_serialize', ['diarys']);
@@ -70,7 +76,11 @@ class DiarysController extends AppController
                 
                 $accumulatedPoints = count($user->words)*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
                                         count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory;
-                $lastPoints = end($user->points)->remained_points;
+                if ($user->points == null) {
+                    $lastPoints = 0;
+                } else {
+                    $lastPoints = end($user->points)->remained_points;
+                }
 
                 if (($accumulatedPoints - $lastPoints) > 100) {
                     $this->Flash->success(__('Congratulations!! 100 points reached.'));
