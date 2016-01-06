@@ -25,6 +25,18 @@ $('#lookup').click(function(){
     window.open(naverdic+english,'', '_blank');
     return false;
 });
+$('#lookup_dic').click(function(){
+    var dic = 'http://dictionary.reference.com/browse/';
+    var english = $("input[name=english]").val();
+    window.open(dic+english,'', '_blank');
+    return false;
+});
+$('#lookup_the').click(function(){
+    var dic = 'http://www.thesaurus.com/browse/';
+    var english = $("input[name=english]").val();
+    window.open(dic+english,'', '_blank');
+    return false;
+});
 
 $('#reset').on('click', function(e) {
     e.preventDefault();
