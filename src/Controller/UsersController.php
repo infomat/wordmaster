@@ -45,6 +45,11 @@ class UsersController extends AppController
                 //save login time at auth to get access globally
                 $user['lastLoginTime'] = Time::now();
                 $this->Auth->setUser($user);
+                $current_user = $this->Users->get($user['id'], [
+                    'contain' => []
+                ]);
+                $current_user->lastLoginTime = $user['lastLoginTime'];
+                $this->Users->save($current_user);
                 
                 //due to frequent write, user should finish study by logout to write history    
                 return $this->redirect($this->Auth->redirectUrl());
