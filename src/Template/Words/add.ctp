@@ -4,7 +4,7 @@
         <legend><?= __('Add Word') ?></legend>
         <button type="button" class="btn btn-info right" id="lookup">Naver</button>
         <button type="button" class="btn btn-info right" id="lookup_dic">Dictionary.com</button>
-        <button type="button" class="btn btn-info right" id="lookup_the">Thesaurus.com/</button>
+        <button type="button" class="btn btn-info right" id="lookup_the">Thesaurus.com</button>
         <?php
             echo $this->Form->input('english');
             echo $this->Form->input('meaning',['rows' => '3']);

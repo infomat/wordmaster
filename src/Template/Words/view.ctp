@@ -3,7 +3,7 @@
     <table class="vertical-table">
         <tr>
             <th><?= __('English') ?></th>
-            <td><?= $this->Html->link(h($word->english), 'http://endic.naver.com/search.nhn?sLn=en&searchOption=all&query='.$word->english.'#',['target' => '_blank']) ?></td>
+            <td><?= $this->Html->link(h($word->english), 'http://www.howjsay.com/index.php?word='.$word->english.'&submit=Submit',['target' => 'pronunciation']) ?></td>
         </tr>
         <tr>
             <th><?= __('Meaning') ?></th>
