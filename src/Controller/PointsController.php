@@ -71,10 +71,15 @@ class PointsController extends AppController
         
         //make array of most recent accumulated points
         foreach ($users as $user) {
+            $sum = 0;
+            foreach ($user->diarys as $diary) {
+                $sum = $sum + str_word_count($diary['body']) * $this->rateJournalWord;    
+            }
+            
             $accumulatedPoints[$user->id] = count($user->words)*$this->rateAddWord + 
                 count($user->completed_words)*$this->rateFinishWord +
                 count($user->diarys)*$this->rateJournal + 
-                count($user->historys)*$this->rateHistory;
+                count($user->historys)*$this->rateHistory + $sum;
         }
   
         //make array of most recent remained points

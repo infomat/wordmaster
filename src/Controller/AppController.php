@@ -72,7 +72,7 @@ class AppController extends Controller
             ]
         ]);
         Configure::write('rateAddWord', '0.2');
-        Configure::write('rateFinishWord', '0.2');
+        Configure::write('rateFinishWord', '0.3');
         Configure::write('rateJournal', '1');
         Configure::write('rateJournalWord', '0.1');
         Configure::write('rateHistory', '0.1');

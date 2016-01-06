@@ -1,6 +1,16 @@
 <div class="users view content">
-    <h3>TOTAL PTS: <?= count($user->words)*$rateAddWord+count($user->completed_words)*$rateFinishWord+count($user->diarys)*$rateJournal+count($user->historys)*$rateHistory ?></h3>
-    <p class=wmnotice>*Points are caculated with following fomula: (# of Word)* <?= $rateAddWord ?> + (#ofCompleted Word)*<?= $rateFinishWord ?> + (#ofJournal)*<?= $rateJournal ?> + (#ofHistory)*<?= $rateHistory ?></p>
+    <?php 
+        $sum = 0;
+        foreach ($user->diarys as $diary) {
+            $sum = $sum + str_word_count($diary['body']) * $rateJournalWord;    
+        }
+     ?>
+    <h3>TOTAL PTS: <?= count($user->words)*$rateAddWord+count($user->completed_words)*$rateFinishWord+count($user->diarys)*$rateJournal+count($user->historys)*$rateHistory+$sum ?></h3>
+    <p class=wmnotice>* Points are caculated with following fomula: (# of Word)* <?= $rateAddWord ?> 
+            + (#ofCompleted Word)*<?= $rateFinishWord ?> 
+            + (#ofJournal)*<?= $rateJournal ?>  
+            + (#ofJournal Word)* <?= $rateJournalWord?> 
+            + (#ofHistory)*<?= $rateHistory ?></p>
     <table class="vertical-table">
         <tr>
             <th><?= __('Role') ?></th>
