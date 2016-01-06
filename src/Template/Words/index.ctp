@@ -23,7 +23,7 @@
         <tbody>
             <?php foreach ($words as $word): ?>
             <tr>
-                <td><?= $this->Html->link(h($word->english), 'http://endic.naver.com/search.nhn?sLn=en&searchOption=all&query='.$word->english.'#',['target' => '_blank']) ?></td>
+                <td><?= $this->Html->link(h($word->english), 'http://www.howjsay.com/index.php?word='.$word->english.'&submit=Submit',['target' => '_blank']) ?></td>
                 <td><?= h($word->meaning) ?></td>
                 <td><?= $word->completed ? __('Yes') : __('No'); ?></td>
                 <td><?= h($word->user->name) ?></td>

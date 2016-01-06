@@ -39,7 +39,7 @@
           <ul class="dropdown-menu">
             <li><a href="http://endic.naver.com/?sLn=en" target="_blank">Naver</a></li>
             <li><a href="http://www.thesaurus.com/" target="_blank">Thesaurus.com</a></li>
-            <li><a href="http://dictionary.reference.com/" target="_blank">Dictionary.com/</a></li>
+            <li><a href="http://dictionary.reference.com/" target="_blank">Dictionary.com</a></li>
             <li><a href="http://www.macmillandictionary.com/" target="_blank">Macmillan</a></li>
           </ul>		          
       </li>
