@@ -3,6 +3,10 @@
     padding: 3pt;
 }
 
+#lookup, #lookup_dic, #lookup_the {
+    margin-left: 0.2em;
+}
+
 div #body {
     text-align:left;
 }
