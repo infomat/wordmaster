@@ -35,6 +35,7 @@ class AppController extends Controller
     public $rateJournal = 1;
     public $rateJournalWord = 0.1; 
     public $rateHistory = 0.1;
+    public $maxWord = 150; //max number of words to get point. ie maximum points per article.
 
     /**
      * Initialization hook method.

@@ -126,7 +126,8 @@ class UsersController extends AppController
         $rateJournal = $this->rateJournal;
         $rateJournalWord = $this->rateJournalWord;
         $rateHistory = $this->rateHistory;
-        $this->set(compact('user','rateAddWord','rateFinishWord','rateJournal','rateJournalWord','rateHistory'));
+        $maxWord = $this->maxWord;
+        $this->set(compact('user','rateAddWord','rateFinishWord','rateJournal','rateJournalWord','rateHistory','maxWord'));
     }
     
     /**
@@ -147,7 +148,8 @@ class UsersController extends AppController
         $rateJournal = $this->rateJournal;
         $rateJournalWord = $this->rateJournalWord;
         $rateHistory = $this->rateHistory;
-        $this->set(compact('users','rateAddWord','rateFinishWord','rateJournal','rateJournalWord','rateHistory'));
+        $maxWord = $this->maxWord;
+        $this->set(compact('users','rateAddWord','rateFinishWord','rateJournal','rateJournalWord','rateHistory','maxWord'));
     }
     
     /**

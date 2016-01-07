@@ -2,7 +2,7 @@
     <?php 
         $sum = 0;
         foreach ($user->diarys as $diary) {
-            $sum = $sum + str_word_count($diary['body']) * $rateJournalWord;    
+            $sum = $sum + (str_word_count($diary['body']) % $maxWord)  * $rateJournalWord;    
         }
      ?>
     <h3>TOTAL PTS: <?= count($user->words)*$rateAddWord+count($user->completed_words)*$rateFinishWord+count($user->diarys)*$rateJournal+count($user->historys)*$rateHistory+$sum ?></h3>
