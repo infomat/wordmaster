@@ -19,7 +19,7 @@
                 <?php 
                     $sum = 0;
                     foreach ($user->diarys as $diary) {
-                        $sum = $sum + ((str_word_count($diary['body'])) % $max_word) * $rateJournalWord;    
+                        $sum = $sum + ((str_word_count($diary['body'])) % $maxWord) * $rateJournalWord;    
                     }
                  ?>
                 <td><?= h($user->username) ?></td>
