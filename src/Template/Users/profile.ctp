@@ -25,13 +25,13 @@
                     foreach ($user->words as $word) {
                         if ($word->meaning != null)  {
                             $numWords++;
-                        }
+                        } 
                     }
                  ?>
                 <td><?= h($user->username) ?></td>
                 <td><?= h($user->name) ?></td>
                 <td><?= h($user->lastLoginTime) ?></td>
-                <td><?= count($user->words) ?></td>
+                <td><?= $numWords ?></td>
                 <td><?= count($user->completed_words) ?></td>
                 <td><?= count($user->diarys) ?></td>
                 <td><?= count($user->historys) ?></td>
