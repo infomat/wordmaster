@@ -60,19 +60,21 @@ class UsersController extends AppController
 
     public function logout()
     {
-        $duration = date_diff($this->Auth->user('lastLoginTime'),Time::now());
-        $duration_min = $duration->days * 24 * 60;
-        $duration_min += $duration->h * 60;
-        $duration_min += $duration->i;
-        //save to history with user ID
-        //this seems to be not good way..... 
-        
-        $this->loadModel('Historys');
-        $history = $this->Historys->newEntity();
-        $history->user_id = $this->Auth->user('id');
-        $history->lastLoginTime = $this->Auth->user('lastLoginTime');
-        $history->duration = $duration_min;
-        $this->Historys->save($history);
+        if ($this->Auth->user != null) {
+            $duration = date_diff($this->Auth->user('lastLoginTime'),Time::now());
+            $duration_min = $duration->days * 24 * 60;
+            $duration_min += $duration->h * 60;
+            $duration_min += $duration->i;
+            //save to history with user ID
+            //this seems to be not good way..... 
+
+            $this->loadModel('Historys');
+            $history = $this->Historys->newEntity();
+            $history->user_id = $this->Auth->user('id');
+            $history->lastLoginTime = $this->Auth->user('lastLoginTime');
+            $history->duration = $duration_min;
+            $this->Historys->save($history);
+        }
         return $this->redirect($this->Auth->logout());
     }
     

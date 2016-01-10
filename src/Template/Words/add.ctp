@@ -13,6 +13,9 @@
             echo '<label>Tag:</label>';
             echo $this->Form->select('tags._ids', $tags, ['multiple' => 'checkbox']);
             echo $this->Form->input('tag_string', ['type' => 'text']);
+            if ($this->request->session()->read('Auth.User.role') == 'admin') {
+                echo $this->Form->input('user_id', ['options' => $username, 'empty' => true]);
+            }
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

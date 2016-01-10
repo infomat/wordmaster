@@ -73,9 +73,21 @@ class DiarysController extends AppController
                 $user = $this->Users->get($this->Auth->user('id'), [
                     'contain' => ['Diarys', 'Historys', 'Points', 'Words','CompletedWords']
                 ]);
+
+                $sum = 0;
+                foreach ($user->diarys as $diary) {
+                    $sum = $sum + ((str_word_count($diary['body'])) % $this->maxWord) * $this->rateJournalWord;    
+                }
                 
-                $accumulatedPoints = count($user->words)*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
-                                        count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory;
+                $numWords = 0;
+                foreach ($user->words as $word) {
+                    if ($word->meaning != null)  {
+                        $numWords++;
+                    }
+                }
+                
+                $accumulatedPoints = $numWords*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +   
+                                        count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory + $sum;
                 if ($user->points == null) {
                     $lastPoints = 0;
                 } else {

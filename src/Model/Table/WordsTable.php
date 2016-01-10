@@ -91,6 +91,7 @@ class WordsTable extends Table
             ->notEmpty('english','need to fill in english word')
             ->requirePresence('english');
         
+      /* to enable admin can add word without meaning  
         $validator
             ->notEmpty('meaning','need to fill in meaning of word')
             ->requirePresence('meaning');
@@ -98,7 +99,7 @@ class WordsTable extends Table
         $validator
             ->notEmpty('example','need to fill in example of word')
             ->requirePresence('example');
-
+     */
         $validator
             ->add('completed', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('completed');

@@ -76,7 +76,14 @@ class PointsController extends AppController
                 $sum = $sum + ((str_word_count($diary['body'])) % $this->maxWord) * $this->rateJournalWord;    
             }
             
-            $accumulatedPoints[$user->id] = count($user->words)*$this->rateAddWord + 
+            $numWords = 0;
+            foreach ($user->words as $word) {
+                if ($word->meaning != null)  {
+                    $numWords++;
+                }
+            }
+            
+            $accumulatedPoints[$user->id] = $numWords*$this->rateAddWord + 
                 count($user->completed_words)*$this->rateFinishWord +
                 count($user->diarys)*$this->rateJournal + 
                 count($user->historys)*$this->rateHistory + $sum;

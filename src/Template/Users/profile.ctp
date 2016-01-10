@@ -21,6 +21,12 @@
                     foreach ($user->diarys as $diary) {
                         $sum = $sum + ((str_word_count($diary['body'])) % $maxWord) * $rateJournalWord;    
                     }
+                    $numWords = 0;
+                    foreach ($user->words as $word) {
+                        if ($word->meaning != null)  {
+                            $numWords++;
+                        }
+                    }
                  ?>
                 <td><?= h($user->username) ?></td>
                 <td><?= h($user->name) ?></td>
@@ -29,7 +35,7 @@
                 <td><?= count($user->completed_words) ?></td>
                 <td><?= count($user->diarys) ?></td>
                 <td><?= count($user->historys) ?></td>
-                <td><?= count($user->words)*$rateAddWord+count($user->completed_words)*$rateFinishWord+count($user->diarys)*$rateJournal+count($user->historys)*$rateHistory+$sum ?></td>
+                <td><?= $numWords*$rateAddWord+count($user->completed_words)*$rateFinishWord+count($user->diarys)*$rateJournal+count($user->historys)*$rateHistory+$sum ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>

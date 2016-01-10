@@ -128,7 +128,13 @@ class WordsController extends AppController
                 $sum = $sum + ((str_word_count($diary['body'])) % $this->maxWord) * $this->rateJournalWord;    
             }
             
-            $accumulatedPoints = count($user->words)*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
+            $numWords = 0;
+            foreach ($user->words as $word) {
+                if ($word->meaning != null)  {
+                    $numWords++;
+                }
+            }
+            $accumulatedPoints = $numWords*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
                                     count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory+$sum;
             if ($user->points == null) {
                 $lastPoints = 0;
@@ -207,7 +213,7 @@ class WordsController extends AppController
         if ($this->request->is('post')) {
             $this->request->data['english'] = trim($this->request->data['english']);
             $word = $this->Words->patchEntity($word, $this->request->data);
-            if ($this->Auth->user('id') != null) {
+            if (($this->Auth->user('id') != null) && ($word->user_id==null)) {
                 $word->user_id = $this->Auth->user('id');
             }  
             
@@ -217,8 +223,18 @@ class WordsController extends AppController
                     'contain' => ['Diarys', 'Historys', 'Points', 'Words','CompletedWords']
                 ]);
                 
-                $accumulatedPoints = count($user->words)*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
-                                        count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory;
+                $sum = 0;
+                foreach ($user->diarys as $diary) {
+                    $sum = $sum + ((str_word_count($diary['body'])) % $this->maxWord) * $this->rateJournalWord;    
+                }
+                $numWords = 0;
+                foreach ($user->words as $word) {
+                    if ($word->meaning != null)  {
+                        $numWords++;
+                    }
+                }
+                $accumulatedPoints = $numWords*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
+                                        count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory + $sum;
                 
                 $lastPoints = end($user->points)->remained_points;
 
@@ -237,7 +253,9 @@ class WordsController extends AppController
             }
         }
         $tags = $this->Words->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('word', 'tags'));
+        $username = $this->Words->Users->find('list', ['keyField' => 'id','valueField' => 'name'], ['limit' => 200])
+                                        ->toArray();
+        $this->set(compact('word', 'tags', 'username'));
         $this->set('_serialize', ['word']);
     }
 

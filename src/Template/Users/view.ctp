@@ -4,8 +4,14 @@
         foreach ($user->diarys as $diary) {
             $sum = $sum + (str_word_count($diary['body']) % $maxWord)  * $rateJournalWord;    
         }
+        $numWords = 0;
+        foreach ($user->words as $word) {
+            if ($word->meaning != null)  {
+                $numWords++;
+            }
+        }
      ?>
-    <h3>TOTAL PTS: <?= count($user->words)*$rateAddWord+count($user->completed_words)*$rateFinishWord+count($user->diarys)*$rateJournal+count($user->historys)*$rateHistory+$sum ?></h3>
+    <h3>TOTAL PTS: <?= $numWords*$rateAddWord+count($user->completed_words)*$rateFinishWord+count($user->diarys)*$rateJournal+count($user->historys)*$rateHistory+$sum ?></h3>
     <p class=wmnotice>* Points are caculated with following fomula: (# of Word)* <?= $rateAddWord ?> 
             + (#ofCompleted Word)*<?= $rateFinishWord ?> 
             + (#ofJournal)*<?= $rateJournal ?>  
