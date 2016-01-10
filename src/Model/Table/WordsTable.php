@@ -103,7 +103,7 @@ class WordsTable extends Table
         $validator
             ->add('completed', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('completed');
-
+        
         return $validator;
     }
 

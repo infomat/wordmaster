@@ -216,40 +216,52 @@ class WordsController extends AppController
             if (($this->Auth->user('id') != null) && ($word->user_id==null)) {
                 $word->user_id = $this->Auth->user('id');
             }  
-            
-            if ($this->Words->save($word)) {
-                $this->loadModel('Users');
-                $user = $this->Users->get($word->user_id, [
-                    'contain' => ['Diarys', 'Historys', 'Points', 'Words','CompletedWords']
-                ]);
-                
-                $sum = 0;
-                foreach ($user->diarys as $diary) {
-                    $sum = $sum + ((str_word_count($diary['body'])) % $this->maxWord) * $this->rateJournalWord;    
-                }
-                $numWords = 0;
-                foreach ($user->words as $word) {
-                    if ($word->meaning != null)  {
-                        $numWords++;
-                    }
-                }
-                $accumulatedPoints = $numWords*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
-                                        count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory + $sum;
-                
-                $lastPoints = end($user->points)->remained_points;
-
-                if (($accumulatedPoints - $lastPoints) > 100) {
-                    $this->Flash->success(__('Congratulations!! 100 points reached.'));
-                    //send Email to admin, if user has reached 100 points which worth $10
-                    $this->commentmail(($accumulatedPoints - $lastPoints), $loginuser['name'], 'cch.choi@gmail.com');
-                    return $this->redirect(['controller' => 'Points','action' => 'index']);
-                } else {
-                    $this->Flash->success(__('The word has been saved.'));
-                    return $this->redirect(['action' => 'index']);
-                }
-                
+            if (($loginuser['role'] != 'admin') && 
+                (($this->request->data['meaning'] == null) 
+                 || ($this->request->data['example'] == null))) {
+                $this->Flash->error(__('The meaning or example field should filled!'));
             } else {
-                $this->Flash->error(__('The word is duplicated. It could not be saved'));
+                if ($this->Words->save($word)) {
+                    $this->loadModel('Users');
+                    $user = $this->Users->get($word->user_id, [
+                        'contain' => ['Diarys', 'Historys', 'Points', 'Words','CompletedWords']
+                    ]);
+
+                    $sum = 0;
+                    foreach ($user->diarys as $diary) {
+                        $sum = $sum + ((str_word_count($diary['body'])) % $this->maxWord) * $this->rateJournalWord;    
+                    }
+                    $numWords = 0;
+                    foreach ($user->words as $word) {
+                        if ($word->meaning != null)  {
+                            $numWords++;
+                        }
+                    }
+                    $accumulatedPoints = $numWords*$this->rateAddWord + count($user->completed_words)*$this->rateFinishWord +
+                                            count($user->diarys)*$this->rateJournal + count($user->historys)*$this->rateHistory + $sum;
+                    if ($user->points != null) {
+                        $lastPoints = end($user->points)->remained_points;
+                    } else {
+                        $lastPoints = 0;
+                    }
+
+                    if (($accumulatedPoints - $lastPoints) > 100) {
+                        $this->Flash->success(__('Congratulations!! 100 points reached.'));
+                        //send Email to admin, if user has reached 100 points which worth $10
+                        $this->commentmail(($accumulatedPoints - $lastPoints), $loginuser['name'], 'cch.choi@gmail.com');
+                        return $this->redirect(['controller' => 'Points','action' => 'index']);
+                    } else {
+                        $this->Flash->success(__('The word has been saved.'));
+                        if ($loginuser['role']=='admin') {
+                            return $this->redirect(['action' => 'add']);
+                        } else {
+                            return $this->redirect(['action' => 'index']);
+                        }
+                    }
+
+                } else {
+                    $this->Flash->error(__('The word is duplicated. It could not be saved'));
+                }
             }
         }
         $tags = $this->Words->Tags->find('list', ['limit' => 200]);
